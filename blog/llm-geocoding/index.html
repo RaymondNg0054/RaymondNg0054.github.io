@@ -20,16 +20,9 @@ permalink: /blog/llm-geocoding/
     <link rel="icon" href="/images/rocketship.jpg" type="image/jpeg">
     <title>Toying Around</title>
     
-    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" />
-    
-    <!-- PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
-    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
@@ -52,8 +45,12 @@ permalink: /blog/llm-geocoding/
     </p>
     <div id="map"></div>
     
-    <!-- Custom JavaScript -->
     <script src="js/map.js"></script>
+    <p>As you can see, results widely vary depending on model used and the part of the world the point is located. Here are some things that I found interesting:</p>
+    <ul>
+        <li>DeepSeek R1 will not answer any queries relating to Taiwan, but DeepSeek V3 will.</li>
+        <li>The more well known your location is, the more accurate it will be.</li>
+    </ul>
 </body>
 
 </html>
