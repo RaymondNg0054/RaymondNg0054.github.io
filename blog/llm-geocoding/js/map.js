@@ -124,13 +124,17 @@ async function loadCSVs() {
 
 // Create a legend
 const legend = L.control({position: 'bottomright'});
+let legendContent;
 
 legend.onAdd = function(map) {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = '<h4>Data Sources</h4>';
     
+    // Create a container for the legend content
+    legendContent = L.DomUtil.create('div', 'legend-content', div);
+    
     Object.entries(colors).forEach(([source, color]) => {
-        div.innerHTML += `
+        legendContent.innerHTML += `
             <div class="legend-item">
                 <span class="color-box" style="background-color: ${color}"></span>
                 ${source.replace(/_/g, ' ')}
@@ -138,20 +142,101 @@ legend.onAdd = function(map) {
         `;
     });
     
+    // Add toggle button for legend
+    const toggleButton = L.DomUtil.create('button', 'map-control-button legend-toggle', div);
+    toggleButton.innerHTML = 'Hide Legend';
+    toggleButton.style.display = 'block';
+    toggleButton.style.width = '100%';
+    toggleButton.style.marginTop = '5px';
+    
+    toggleButton.onclick = function() {
+        if (legendContent.classList.contains('collapsed')) {
+            legendContent.classList.remove('collapsed');
+            toggleButton.innerHTML = 'Hide Legend';
+        } else {
+            legendContent.classList.add('collapsed');
+            toggleButton.innerHTML = 'Show Legend';
+        }
+    };
+    
     return div;
 };
 
 legend.addTo(map);
 
-// Add layer control
+// Add layer control with custom container
 const overlays = {};
 Object.entries(layers).forEach(([name, layer]) => {
     overlays[name.replace(/_/g, ' ')] = layer;
 });
 
-L.control.layers(null, overlays, {collapsed: false}).addTo(map);
+// Add the layer control
+const layerControl = L.control.layers(null, overlays, {collapsed: false}).addTo(map);
+
+// Add toggle button for layer control
+const layerControlToggle = L.control({position: 'topright'});
+layerControlToggle.onAdd = function(map) {
+    const div = L.DomUtil.create('div', 'layer-control-toggle');
+    const button = L.DomUtil.create('button', 'map-control-button', div);
+    button.innerHTML = 'Hide Layers';
+    
+    button.onclick = function() {
+        // Find the layer control container
+        const layerControlContainer = document.querySelector('.leaflet-control-layers');
+        const layerControlForm = layerControlContainer.querySelector('.leaflet-control-layers-list');
+        
+        if (layerControlForm.classList.contains('collapsed')) {
+            layerControlForm.classList.remove('collapsed');
+            button.innerHTML = 'Hide Layers';
+        } else {
+            layerControlForm.classList.add('collapsed');
+            button.innerHTML = 'Show Layers';
+        }
+    };
+    
+    return div;
+};
+
+layerControlToggle.addTo(map);
 
 // Load the data
 document.addEventListener('DOMContentLoaded', function() {
     loadCSVs();
+    
+    // Add CSS to make the layer control collapsible
+    const style = document.createElement('style');
+    style.textContent = `
+        .leaflet-control-layers-expanded {
+            padding: 6px 10px 6px 6px;
+        }
+        
+        .leaflet-control-layers-list.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .leaflet-control-layers-list {
+            max-height: 500px;
+            opacity: 1;
+            transition: max-height 0.3s, opacity 0.3s, margin 0.3s, padding 0.3s;
+            overflow: hidden;
+        }
+        
+        .legend-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .legend-content {
+            max-height: 500px;
+            opacity: 1;
+            transition: max-height 0.3s, opacity 0.3s, margin 0.3s, padding 0.3s;
+            overflow: hidden;
+        }
+    `;
+    document.head.appendChild(style);
 });
