@@ -25,6 +25,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     font-size: 1.25em;
+    line-height: 30px;
 }
 
 .striped-table {
