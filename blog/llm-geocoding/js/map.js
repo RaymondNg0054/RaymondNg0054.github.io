@@ -8,14 +8,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Define colors for each source
 const colors = {
-    'address_source_of_truth': 'black',
-    'chatgpt_o1': 'blue',
-    'claude_3_7_sonnet': 'green',
-    'deepseek_r1': 'red',
-    'deepseek_v3': 'purple',
-    'gemini_2_5_pro_experimental': 'orange',
-    'llama_3_1_405B_instruct': 'darkred',
-    'llama_4_maverick_17B_128E_instruct': 'cadetblue'
+    'Address Source of Truth': 'black',
+    'ChatGPT o1': 'blue',
+    'Claude 3.7 Sonnet': 'green',
+    'DeepSeek R1': 'red',
+    'DeepSeek V3': 'purple',
+    'Gemini 2.5 Pro Experimental': 'orange',
+    'Llama 3.1 405B Instruct': 'darkred',
+    'LLama 4 Maverick 17B 12E Instruct': 'cadetblue'
 };
 
 // Create layer groups for each source
