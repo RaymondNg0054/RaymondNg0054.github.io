@@ -40,16 +40,19 @@ permalink: /blog/llm-geocoding/
         bunch of other widely-used LLMs to see which one is best for this "offline" geocoding (yes, I'm considering
         closed-source LLMs in this, just imagine you're in the book <i>Project Hail Mary</i>, and you have access
         to
-        every computer program ever).
+        every computer program ever).</p>
 
     <p>I first created a dataset of 25 locations with the coordinates from Google Maps as the source of truth.</p>
 
     <p>Next, I chose 7 LLMs to compare [o1, claude-3.7-sonnet, DeepSeek R1, DeepSeek v3, gemini-2.5-pro-experimental,
         llama_3_1_405B_instruct, llama_4_maverick_17B_128E_instruct].</p>
 
-    <p>Then, I plotted them all on a map</p>
+    <p>Then, I gave the dataset with all of the coordinates removed to each LLM with this prompt:</p>
 
-    </p>
+    <code>Given these addresses, give the coordinates for each of them. I do not want any code to find these out or any services. Just give it your best shot to get the coordinates to 12 decimal places in Latitude and Longitude columns. Output your answer in CSV format.</code>
+
+    <p>Lastly, I plotted all of the given coordinates on a map.</p>
+
     <div id="map"></div>
 
     <script src="js/map.js"></script>
