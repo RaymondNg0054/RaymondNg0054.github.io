@@ -1,8 +1,9 @@
 ---
-permalink: /blog/llm-geocoding/
+permalink: /blog/llm-geocoding
 ---
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NJM0RV1MF0"></script>
@@ -29,7 +30,14 @@ permalink: /blog/llm-geocoding/
     <h1>LLM Geocoding</h1>
     <p>I was playing around with Google's Geocoding API when I thought to plug in an address to o1 for shits and
         giggles. Imagine my surprise when it actually got it right down to the first 3 decimal places (precision of
-        within hundreds of meters)! Considering the fact that it got in the near vicinity without any internet access at all, that's pretty impressive.
+        within hundreds of meters)! Considering the fact that it got in the near vicinity without any internet access at
+        all, that's pretty impressive. Naturally, the next step was to host a battle royale with a bunch of other
+        widely-used LLMs to see which one is best for this "offline" geocoding.
+
+        I first created a dataset of 25 locations with the coordinates from Google Maps as the source of truth.
+
+        Next, I chose 7 LLMs to compare [o1, claude-3.7-sonnet, deepseek_r1, deepseek v3, gemini-2.5-pro-experimental, llama_3_1_405B_instruct, llama_4_maverick_17B_128E_instruct].
     </p>
 </body>
+
 </html>
