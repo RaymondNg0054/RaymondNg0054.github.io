@@ -1,9 +1,10 @@
 // Initialize the map
-const map = L.map('map').setView([0, 0], 2);
+const map = L.map('map').setView([37.0902, -95.7129], 4); // Default to US center
 
 // Add OpenStreetMap tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
 }).addTo(map);
 
 // Define colors for each source
@@ -37,11 +38,26 @@ async function loadCSVs() {
         'csv/llama_4_maverick_17B_128E_instruct.csv'
     ];
     
+    // Arrays to store all coordinates for calculating bounds
     const allLats = [];
     const allLons = [];
+    const allCoordinates = [];
+    
+    // Map source names from filenames to display names
+    const sourceNameMap = {
+        'address_source_of_truth': 'Address Source of Truth',
+        'chatgpt_o1': 'ChatGPT o1',
+        'claude_3_7_sonnet': 'Claude 3.7 Sonnet',
+        'deepseek_r1': 'DeepSeek R1',
+        'deepseek_v3': 'DeepSeek V3',
+        'gemini_2_5_pro_experimental': 'Gemini 2.5 Pro Experimental',
+        'llama_3_1_405B_instruct': 'Llama 3.1 405B Instruct',
+        'llama_4_maverick_17B_128E_instruct': 'LLama 4 Maverick 17B 12E Instruct'
+    };
     
     for (const file of csvFiles) {
-        const sourceName = file.replace('csv/', '').replace('.csv', '');
+        const fileKey = file.replace('csv/', '').replace('.csv', '');
+        const sourceName = sourceNameMap[fileKey] || fileKey;
         
         try {
             const response = await fetch(file);
@@ -56,8 +72,10 @@ async function loadCSVs() {
                         const lon = parseFloat(row.Longitude);
                         
                         if (!isNaN(lat) && !isNaN(lon)) {
+                            // Store coordinates for bounds calculation
                             allLats.push(lat);
                             allLons.push(lon);
+                            allCoordinates.push([lat, lon]);
                             
                             // Create popup content
                             const popupContent = `
@@ -80,11 +98,21 @@ async function loadCSVs() {
                         }
                     });
                     
-                    // After loading all data, center the map
-                    if (allLats.length > 0 && allLons.length > 0) {
-                        const centerLat = allLats.reduce((a, b) => a + b, 0) / allLats.length;
-                        const centerLon = allLons.reduce((a, b) => a + b, 0) / allLons.length;
-                        map.setView([centerLat, centerLon], 2);
+                    // After loading all data, fit the map to the bounds of all points
+                    if (allCoordinates.length > 0) {
+                        try {
+                            const bounds = L.latLngBounds(allCoordinates);
+                            map.fitBounds(bounds, {
+                                padding: [50, 50],
+                                maxZoom: 12
+                            });
+                        } catch (e) {
+                            console.error("Error setting bounds:", e);
+                            // Fallback to center calculation if bounds fail
+                            const centerLat = allLats.reduce((a, b) => a + b, 0) / allLats.length;
+                            const centerLon = allLons.reduce((a, b) => a + b, 0) / allLons.length;
+                            map.setView([centerLat, centerLon], 4);
+                        }
                     }
                 }
             });
