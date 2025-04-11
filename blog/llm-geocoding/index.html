@@ -81,30 +81,57 @@ permalink: /blog/llm-geocoding/
             </thead>
             <tbody>
                 <tr>
+                    <td>gemini_2_5_pro_experimental</td>
+                    <td>1.04</td>
+                    <td>0.63</td>
+                    <td>7.68</td>
+                    <td>0.001</td>
+                    <td>1.25</td>
+                    <td>94.21</td>
+                </tr>
+                <tr>
+                    <td>chatgpt_o1</td>
+                    <td>1.34</td>
+                    <td>0.84</td>
+                    <td>11.27</td>
+                    <td>0.004</td>
+                    <td>1.51</td>
+                    <td>100.00</td>
+                </tr>
+                <tr>
+                    <td>claude_3_7_sonnet</td>
+                    <td>1.67</td>
+                    <td>1.19</td>
+                    <td>12.16</td>
+                    <td>0.001</td>
+                    <td>1.88</td>
+                    <td>100.00</td>
+                </tr>
+                <tr>
                     <td>deepseek_r1</td>
                     <td>1.91</td>
                     <td>1.22</td>
                     <td>12.60</td>
                     <td>0.004</td>
                     <td>2.09</td>
-                    <td>96.72</td>
+                    <td>97.52</td>
                 </tr>
                 <tr>
                     <td>llama_3_1_405B_instruct</td>
-                    <td>28.94</td>
+                    <td>6.46</td>
                     <td>1.46</td>
-                    <td>2502.24</td>
+                    <td>471.24</td>
                     <td>0.003</td>
-                    <td>239.96</td>
-                    <td>90.98</td>
+                    <td>44.58</td>
+                    <td>90.91</td>
                 </tr>
                 <tr>
                     <td>llama_4_maverick_17B_128E_instruct</td>
-                    <td>35.74</td>
-                    <td>1.58</td>
-                    <td>2416.02</td>
+                    <td>16.07</td>
+                    <td>1.57</td>
+                    <td>1290.66</td>
                     <td>0.037</td>
-                    <td>246.18</td>
+                    <td>117.88</td>
                     <td>100.00</td>
                 </tr>
                 <tr>
@@ -114,34 +141,7 @@ permalink: /blog/llm-geocoding/
                     <td>4141.50</td>
                     <td>0.003</td>
                     <td>374.74</td>
-                    <td>99.18</td>
-                </tr>
-                <tr>
-                    <td>claude_3_7_sonnet</td>
-                    <td>43.85</td>
-                    <td>1.19</td>
-                    <td>5147.57</td>
-                    <td>0.001</td>
-                    <td>463.98</td>
                     <td>100.00</td>
-                </tr>
-                <tr>
-                    <td>chatgpt_o1</td>
-                    <td>90.29</td>
-                    <td>0.85</td>
-                    <td>10853.61</td>
-                    <td>0.004</td>
-                    <td>978.49</td>
-                    <td>100.00</td>
-                </tr>
-                <tr>
-                    <td>gemini_2_5_pro_experimental</td>
-                    <td>95.42</td>
-                    <td>0.63</td>
-                    <td>10853.83</td>
-                    <td>0.001</td>
-                    <td>1007.62</td>
-                    <td>94.26</td>
                 </tr>
             </tbody>
         </table>
@@ -149,11 +149,10 @@ permalink: /blog/llm-geocoding/
 
     <h2>Conclusion</h2>
     <p>If you for any reason wanted to get coordinates of an address without the use of the internet, but you somehow
-        had access to every single LLM on the planet (and a supercomputer), DeepSeek R1 would be the way to go based on mean accuracy. However, if
+        had access to every single LLM on the planet (and a supercomputer), Gemini 2.5 Pro would be the way to go based on mean accuracy. However, if
         you live in this
-        reality, your best choice would still be DeepSeek R1, though it doesn't have 100% coverage. If you need complete coverage,
-        LLama 4 Maverick 17B 128E Instruct would be the better choice, and it requires the least
-        amount of resources (it can be run on a laptop!).
+        reality, your best choice would still be Gemini 2.5 Pro, though it doesn't have 100% coverage. If you need complete coverage,
+        ChatGPT o1 or Claude 3.7 Sonnet would be better choices, with ChatGPT o1 having slightly better accuracy.
     </p>
 
     <p>Dataset Download: <a href="csv/address_source_of_truth.csv" download>address_source_of_truth.csv</a></p>
