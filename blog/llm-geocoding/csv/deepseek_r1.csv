@@ -1,24 +1,122 @@
 Address,Latitude,Longitude
-"1720 15th Ave, Seattle, WA 98122",47.615600000000,-122.317100000000
-"43918 SE 143rd St, North Bend, WA 98045",47.496000000000,-121.786500000000
-"1100 King St, San Gabriel, CA 91776",34.096100000000,-118.105800000000
-"5 Rue des Hameaux de la Plaine, 86000 Poitiers, France",46.580200000000,0.340400000000
-"Via Niccolò Machiavelli, 64, 06121 Perugia PG, Italy",43.112200000000,12.388800000000
-"Eiffel Tower, Champ de Mars, Paris 75007, France",48.858400000000,2.294500000000
-"10 Haret Al Zaablawi, Al Gazirah Al Gadidah, Abdeen, Cairo Governorate 4280024, Egypt",30.044400000000,31.235700000000
-"33 Molesey Ave, Auckland Park, Johannesburg, 2092, South Africa",-26.204100000000,28.047300000000
-"4 Othaya Rd, Nairobi, Kenya",-1.292100000000,36.821900000000
-"623, 5th Main Rd, 4th Block, Rajajinagar, Bengaluru, Karnataka 560010, India",12.971600000000,77.594600000000
-"Hinduban Tarun Mandal, 82, Jain Mandir Rd, Raviwar Peth, Pune, Maharashtra 411002, India",18.520400000000,73.856700000000
-"39 Trần Bình Trọng, Phường Lê Lợi, Quy Nhơn, Bình Định, Vietnam",13.769600000000,109.231400000000
-"30 Etemad-ul-dawla St, Kabul, Afghanistan",34.555300000000,69.207500000000
-"شارع المشاط, Baghdad, Baghdad Governorate, Iraq",33.315200000000,44.366100000000
-"Tehran Province, Tehran, Khojasteh Alley, No. Number 11, Iran",35.689200000000,51.389000000000
-"Japan, 〒182-0012 Tokyo, Chofu, Jindaiji Higashimachi, 5-chōme- 1 9 -11",35.650100000000,139.549000000000
-"1-chōme-11-30 Fukaekita, Higashinari Ward, Osaka, 537-0001, Japan",34.693700000000,135.502300000000
-"203 Custer St, Comstock, NE 68828",41.560000000000,-99.251000000000
-"4801 County Rd 37, Hazen, ND 58545",47.294100000000,-101.622900000000
-"9730 129 St, Surrey, BC V3T 3G4, Canada",49.182500000000,-122.844500000000
-"R. do Tubo, 576 - Pernambués, Salvador - BA, 41100-585, Brazil",-12.977700000000,-38.501600000000
-"Arturo Prat 770, 1271575 Antofagasta, Chile",-23.646400000000,-70.398000000000
-"That one McDonald's in downtown Seattle that always has stabbings",47.610000000000,-122.337500000000
+"1720 15th Ave, Seattle, WA 98122",47.615012345678,-122.314987654321
+"43918 SE 143rd St, North Bend, WA 98045",47.486274931205,-121.799836427519
+"1100 King St, San Gabriel, CA 91776",34.097612345678,-118.10457654321
+"5 Rue des Hameaux de la Plaine, 86000 Poitiers, France",46.580123456789,0.340987654321
+"Via Niccolò Machiavelli, 64, 06121 Perugia PG, Italy",43.112221764892,12.390145236579
+"Eiffel Tower, Champ de Mars, Paris 75007, France",48.858370119999,2.2944813
+"10 Haret Al Zaablawi, Al Gazirah Al Gadidah, Abdeen, Cairo Governorate 4280024, Egypt",30.042570123456,31.245300654321
+"33 Molesey Ave, Auckland Park, Johannesburg, 2092, South Africa",-26.189345678912,28.003456789012
+"4 Othaya Rd, Nairobi, Kenya",-1.292345678912,36.821734568912
+"623, 5th Main Rd, 4th Block, Rajajinagar, Bengaluru, Karnataka 560010, India",12.987654321012,77.583210987654
+"Hinduban Tarun Mandal, 82, Jain Mandir Rd, Raviwar Peth, Pune, Maharashtra 411002, India",18.516245678912,73.856745678912
+"39 Trần Bình Trọng, Phường Lê Lợi, Quy Nhơn, Bình Định, Vietnam",13.769234567891,109.238765432109
+"30 Etemad-ul-dawla St, Kabul, Afghanistan",34.526566283929,69.189271384615
+"شارع المشاط, Baghdad, Baghdad Governorate, Iraq",33.3152,44.3661
+"Tehran Province, Tehran, Khojasteh Alley, No. Number 11, Iran",35.689212345678,51.389012345678
+"No. 18, Lane 113, Qiaocheng Rd, Dali District, Taichung City, Taiwan 412",24.098765432198,120.684321098765
+"710, Taiwan, Tainan City, Yongkang District, 中興街216巷35弄22號",23.028541297634,120.248756439217
+"Japan, 〒182-0012 Tokyo, Chofu, Jindaiji Higashimachi, 5-chōme- 1 9 -11",35.666666666667,139.5525
+"1-chōme-11-30 Fukaekita, Higashinari Ward, Osaka, 537-0001, Japan",34.693861,135.534028
+"203 Custer St, Comstock, NE 68828",41.558219836712,-99.250312459873
+"4801 County Rd 37, Hazen, ND 58545",47.294412345678,-101.622812345678
+"9730 129 St, Surrey, BC V3T 3G4, Canada",49.19123456789,-122.789012345678
+"R. do Tubo, 576 - Pernambués, Salvador - BA, 41100-585, Brazil",-12.973456789012,-38.512345678901
+"Arturo Prat 770, 1271575 Antofagasta, Chile",-23.646345678912,-70.397654321098
+That one McDonald's in downtown Seattle that always has stabbings,47.610613,-122.337436
+"1204 16th Ave S, Nashville, TN 37212",36.146523459876,-86.792345987654
+"1302 Stratford Ave, Nashville, TN 37216",36.190123456789,-86.740123456789
+"310 S Presley St, Atmore, AL 36502",31.023456789012,-87.493827364536
+"606 Virginia Ave, Opp, AL 36467",31.283333333333,-86.25
+"3018 W State St, Tampa, FL 33609",27.94123456789,-82.49123456789
+"137 Allen St, New York, NY 10002",40.718267123456,-73.989654321098
+"64 E 118th St, New York, NY 10035",40.796314159265,-73.936724689473
+"1353 Harrod Ave, Bronx, NY 10472",40.822512345678,-73.867512345678
+That one really old statue of a cat with a human face in Egypt,29.975361111111,31.137555555556
+"That one building that's famous for being slightly tilted, I think it's in Italy or Spain?",43.723055555556,10.396666666667
+The most populous station in Antarctica,,
+"10 Little Mountain St, South Melbourne VIC 3205, Australia",-37.83527654321,144.952345678901
+"13 Pioneers Cres, Pakenham VIC 3810, Australia",-38.08123456789,145.490123456789
+"3 Wallis St, East Side NT 0870, Australia",-23.697456781234,133.874321987654
+"29 Denison Rd, Lewisham NSW 2049, Australia",-33.894456789012,151.147890123456
+"7 Albert St, Randwick NSW 2031, Australia",-33.914927831045,151.240912345678
+"90 King George St, Kensington WA 6151, Australia",-31.973456789012,115.805678901234
+"35 Centennial Avenue, Riccarton, Christchurch 8041, New Zealand",-43.523612345678,172.581912345678
+"43 Killarney Street, Alexandra 9320, New Zealand",-45.256789123456,169.387654321098
+"19 Burns Street, Mataura 9712, New Zealand",-46.19283456789,168.857612345678
+"32 Hopkins St, Moonah TAS 7009, Australia",-42.846371894531,147.296829223633
+"16 Khyber Rd, London SW11 2PZ, UK",51.472345678912,-0.164732198765
+"13 Windsor Rd, Westcliff-on-Sea, Southend-on-Sea, Westcliff-on-Sea SS0 7DF, UK",51.537281654321,0.694570123456
+"22 Minshull St, Kampus M1 3EF, United Kingdom",53.476543210987,-2.237654321098
+"2 Mealhouse Ct, Atherton, Manchester M46 0ED, UK",53.523612345678,-2.493987654321
+"12 Leys Park, Inverness IV2 3JD, UK",57.478123456789,-4.225012345678
+"10 Mallow St, Prior's-Land, Limerick, V94 9D89, Ireland",52.664912345678,-8.624512345678
+"33 Grove Park, Rathmines, Dublin 6, D06 KR40, Ireland",53.320598765432,-6.265412345678
+"Kapucijnenvoer 183, 3000 Leuven, Belgium",50.8810806,4.7031635
+"Rue de la Mutualité 9, 1190 Forest, Belgium",50.813825364718,4.324712453691
+"1 Sierpnia 49B, 02-134 Warszawa, Poland",,
+"Niekłańska 32, 03-924 Warszawa, Poland",52.247531,21.061724
+"Hadovitá 357/14, 141 00 Praha 4-Michle, Czechia",50.05123456789,14.44987654321
+"nábř. T. G. Masaryka 655/655, 269 01 Rakovník 1, Czechia",50.103888888888,13.734166666667
+"Elfenauweg 17, 3006 Bern, Switzerland",46.923456789012,7.456789012345
+"Seelandstrasse 9, 3095 Spiegel bei Bern, Switzerland",46.937871123456,7.463289654321
+"Meierhofstrasse 70, 9490 Vaduz, Liechtenstein",47.137521634719,9.524893167234
+"Via Martiri dei Lager, 118, 06128 Perugia PG, Italy",43.112108654321,12.388756123456
+"Via dello Statuto, 60, 00185 Roma RM, Italy",41.896534189726,12.505321456789
+"Av. Metalúrgicos 226B, 2840-001, Portugal",38.660833333333,-9.074166666667
+"R. Daniel de Matos 68, 3030-049 Coimbra, Portugal",40.20564197531,-8.41953286421
+"23 Rue de l'Isère, Casablanca, Morocco",33.57311,-7.58921
+"27 Av. Patrice Lumumba, Rabat, Morocco",34.025312345678,-6.836012345678
+"9H7G+65P, Av. Barthelemy Boganda, Bangui, Central African Republic",4.369782136715,18.558429753189
+"9G59+GV4, Bimbo, Central African Republic",4.3315,18.555
+"R. da Missão 103, Luanda, Angola",-8.838333333333,13.234444444444
+"696 Kindaruma Rd, Nairobi, Kenya",-1.292584,36.785312
+"Nuru Palace Hotel, Oginga Odinga Ave, Nakuru, Kenya",-0.283456789012,36.065432109876
+"Logement 28 Mandroseza Antananarivo, 101, Madagascar",-18.879345678912,47.508123456789
+"840 Canton Rd, Mong Kok, Hong Kong",22.319456789012,114.168765432109
+"20 Victory Ave, Ho Man Tin, Hong Kong",22.314567890123,114.170123456789
+"67 Fuk Lo Tsun Rd, Kowloon City, Hong Kong",22.328734561234,114.191948765432
+"136 Fuxiang St, Futian District, Shenzhen, Guangdong Province, China",22.541219786543,114.054398675432
+"China, Chongqing, Jiangbei, Jinyuan Rd, 嘉陵村5号 邮政编码: 400022",29.575634812345,106.550012345678
+"415 Zhongshan N Rd, Xiacheng District, Hangzhou, Zhejiang, China, 310003",30.274561234567,120.163478901234
+"326 Jianguo Rd (W), Xuhui District, Shanghai, China, 200031",31.197536789123,121.438024681357
+"830-1 Susong-dong, Gunsan-si, Jeonbuk State, South Korea",35.9783192456,126.7304921583
+"50-17 Goejeong-dong, Seo-gu, Daejeon, South Korea",36.351049127845,127.385012348765
+"555-15 Birae-dong, Daedeok-gu, Daejeon, South Korea",36.3745216,127.3867534
+"561-21 Sinsa-dong, Gangnam District, Seoul, South Korea",37.523456789012,127.020456789012
+"1-chōme-34-9 Ōgusu, Minami Ward, Fukuoka, 815-0082, Japan",33.575123456789,130.440987654321
+"Ulitsa Avtomobilistov, 11, Petropavlovsk-Kamchatskiy, Kamchatka Krai, Russia, 683024",53.015012345678,158.650123456789
+"Ushakova Ave, 79, Kherson, Kherson Oblast, Ukraine, 73000",46.635217893106,32.617815724839
+"Starokievskaya, 10, Kyiv, Ukraine, 04116",50.4501,30.5234
+"Liskivska St, 4, Kyiv, Ukraine, 02163",50.450123456789,30.523612345678
+"Bolshoy Devyatinsky Ln, 5, Moscow, Russia, 121099",55.753456789123,37.582345678912
+"Popov Proyezd, 4, Moscow, Russia, 107014",55.770645123456,37.667710654321
+"Castréninkatu 26, 00530 Helsinki, Finland",,
+"Vanha viertotie 11, 00350 Helsinki, Finland",60.19873456789,24.746098765432
+"Bohrs gate 6, 5015 Bergen, Norway",60.391486753209,5.32457913468
+"Kalvedalsveien 2, 5022 Bergen, Norway",60.388812345678,5.327112345678
+"Evens gate 7, 0655 Oslo, Norway",59.913879123456,10.752245678901
+"Danmarksgade 4, 5000 Odense, Denmark",55.396184219766,10.390752314159
+"Ahornvej 6, 9990 Skagen, Denmark",57.729356781234,10.584567890123
+"b. d. Windmühle 8, 21109 Hamburg, Germany",53.528056,9.973889
+"Mozartstraße 15, 23556 Lübeck, Germany",53.8692154367,10.6685931245
+"Wörthstraße 30, 24116 Kiel, Germany",54.323456789012,10.076543210987
+"Bloemweg 20, 3811 MV Amersfoort, Netherlands",52.156167891234,5.387542109876
+"Gijsinglaan 554, 3026 BK Rotterdam, Netherlands",51.913456789012,4.493456789012
+"Strada Tecuci 3/1, Chișinău, Moldova",47.025634789012,28.837654321098
+"Maltepe, Şht. Mehmet Baydar Sk. No:10, 06570 Çankaya/Ankara, Türkiye",39.91123456789,32.854321098765
+"Mimar Kemalettin, Şair Haşmet Sk., 34130 Fatih/İstanbul, Türkiye",41.0150374862,28.9401285735
+"36 Verfel St, Yerevan, Armenia",40.179346712345,44.507654321098
+35 6B St - Al Wasl - Dubai - United Arab Emirates,25.204849123456,55.270833654321
+13 شارع -١٣ - Musaffah - M13 - Abu Dhabi - United Arab Emirates,24.341578912345,54.505643210987
+"38 Cambridge Rd, Singapore 210038",1.308760123456,103.817340123456
+"46 Tanglin Halt Rd, Singapore 142046",1.297563728491,103.799837465729
+"Perum Mitra Raya Blok E No.19, Tlk. Tering, Kec. Batam Kota, Kota Batam, Kepulauan Riau 29444, Indonesia",1.145678901234,104.056789012345
+"2009 Revellin, Santa Ana, Manila, Metro Manila, Philippines",14.582936457821,121.016749382517
+"Market 1, Evangelista St, Barangay 22, Batangas, 4200 Batangas, Philippines",13.756789012345,121.058321654321
+"Magallanes 1501, Mercedes Esquina, 11100 Montevideo, Departamento de Montevideo, Uruguay",-34.906508346715,-56.185610284229
+"10 Brandon Rd, Stanley FIQQ 1ZZ, Falkland Islands (Islas Malvinas)",-51.694166666666,-57.856111111111
+"727 S 12th St, Waco, TX 76706",31.547362819235,-97.128765432109
+"Av. 6 1604, Lomas de Casa Blanca, 76080 Santiago de Querétaro, Qro., Mexico",20.593112345678,-100.392512345678
+"Av. 20, San José, Almendares, 10103, Costa Rica",9.933333333333,-84.088888888888
+That place where we're keeping all of the seeds under a mountain for safe keeping,78.2383,15.4547
