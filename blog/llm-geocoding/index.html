@@ -74,58 +74,90 @@ permalink: /blog/llm-geocoding/
                     <th>Mean Distance (km)</th>
                     <th>Median Distance (km)</th>
                     <th>Max Distance (km)</th>
+                    <th>Min Distance (km)</th>
                     <th>Standard Deviation (km)</th>
+                    <th>Addresses Found</th>
+                    <th>Addresses Total</th>
+                    <th>Coverage (%)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>gemini_2_5_pro_preview</td>
-                    <td>1.79</td>
-                    <td>1.13</td>
-                    <td>6.78</td>
-                    <td>1.87</td>
-                </tr>
-                <tr>
                     <td>deepseek_r1</td>
-                    <td>2.87</td>
-                    <td>1.54</td>
-                    <td>12.64</td>
-                    <td>2.80</td>
-                </tr>
-                <tr>
-                    <td>llama_4_maverick_17B_128E_instruct</td>
-                    <td>3.17</td>
-                    <td>1.62</td>
-                    <td>12.50</td>
-                    <td>3.07</td>
-                </tr>
-                <tr>
-                    <td>claude_3_7_sonnet</td>
-                    <td>3.61</td>
-                    <td>1.25</td>
-                    <td>44.26</td>
-                    <td>8.64</td>
-                </tr>
-                <tr>
-                    <td>chatgpt_o1</td>
-                    <td>4.75</td>
-                    <td>1.66</td>
-                    <td>32.33</td>
-                    <td>8.21</td>
+                    <td>1.91</td>
+                    <td>1.22</td>
+                    <td>12.60</td>
+                    <td>0.004</td>
+                    <td>2.09</td>
+                    <td>118.0</td>
+                    <td>122.0</td>
+                    <td>96.72</td>
                 </tr>
                 <tr>
                     <td>llama_3_1_405B_instruct</td>
-                    <td>5.82</td>
-                    <td>2.94</td>
-                    <td>51.91</td>
-                    <td>10.26</td>
+                    <td>28.94</td>
+                    <td>1.46</td>
+                    <td>2502.24</td>
+                    <td>0.003</td>
+                    <td>239.96</td>
+                    <td>111.0</td>
+                    <td>122.0</td>
+                    <td>90.98</td>
+                </tr>
+                <tr>
+                    <td>llama_4_maverick_17B_128E_instruct</td>
+                    <td>35.74</td>
+                    <td>1.58</td>
+                    <td>2416.02</td>
+                    <td>0.037</td>
+                    <td>246.18</td>
+                    <td>122.0</td>
+                    <td>122.0</td>
+                    <td>100.00</td>
                 </tr>
                 <tr>
                     <td>deepseek_v3</td>
-                    <td>1041.09</td>
-                    <td>2.01</td>
-                    <td>10436.86</td>
-                    <td>2845.61</td>
+                    <td>36.78</td>
+                    <td>1.35</td>
+                    <td>4141.50</td>
+                    <td>0.003</td>
+                    <td>374.74</td>
+                    <td>121.0</td>
+                    <td>122.0</td>
+                    <td>99.18</td>
+                </tr>
+                <tr>
+                    <td>claude_3_7_sonnet</td>
+                    <td>43.85</td>
+                    <td>1.19</td>
+                    <td>5147.57</td>
+                    <td>0.001</td>
+                    <td>463.98</td>
+                    <td>122.0</td>
+                    <td>122.0</td>
+                    <td>100.00</td>
+                </tr>
+                <tr>
+                    <td>chatgpt_o1</td>
+                    <td>90.29</td>
+                    <td>0.85</td>
+                    <td>10853.61</td>
+                    <td>0.004</td>
+                    <td>978.49</td>
+                    <td>122.0</td>
+                    <td>122.0</td>
+                    <td>100.00</td>
+                </tr>
+                <tr>
+                    <td>gemini_2_5_pro_experimental</td>
+                    <td>95.42</td>
+                    <td>0.63</td>
+                    <td>10853.83</td>
+                    <td>0.001</td>
+                    <td>1007.62</td>
+                    <td>115.0</td>
+                    <td>122.0</td>
+                    <td>94.26</td>
                 </tr>
             </tbody>
         </table>
@@ -133,10 +165,10 @@ permalink: /blog/llm-geocoding/
 
     <h2>Conclusion</h2>
     <p>If you for any reason wanted to get coordinates of an address without the use of the internet, but you somehow
-        had access to every single LLM on the planet (and a supercomputer), Gemini would be the way to go. However, if
+        had access to every single LLM on the planet (and a supercomputer), DeepSeek R1 would be the way to go based on mean accuracy. However, if
         you live in this
-        reality, your best choice would be DeepSeek R1, closely followed by LLama 4 Maverick 17B 12E Instruct. Honestly,
-        LLama 4 would probably be the way to go if you were actually trying to run this, since it requires the least
+        reality, your best choice would still be DeepSeek R1, though it doesn't have 100% coverage. If you need complete coverage,
+        LLama 4 Maverick 17B 128E Instruct would be the better choice, and it requires the least
         amount of resources (it can be run on a laptop!).
     </p>
 
