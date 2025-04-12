@@ -34,7 +34,8 @@ permalink: /blog/llm-geocoding/
     </header>
     <h1>LLM Geocoding</h1>
     <p>I was playing around with Google's Geocoding API when I thought to plug in an address to o1 for fun and
-        curiosity's sake. Imagine my surprise when it actually got the coordinates right down to the first 3 decimal places
+        curiosity's sake. Imagine my surprise when it actually got the coordinates right down to the first 3 decimal
+        places
         (precision of within hundreds of meters)! Considering the fact that it got in the near vicinity without any
         internet access at all, that's pretty impressive. Naturally, the next step was to host a battle royale with a
         bunch of other widely-used LLMs to see which one is best for this "offline" geocoding (yes, I'm considering
@@ -42,7 +43,7 @@ permalink: /blog/llm-geocoding/
         to
         every computer program ever).</p>
 
-    <p>I first created a dataset of 25 locations with the coordinates from Google Maps as the source of truth.</p>
+    <p>I first created a dataset of 121 locations with the coordinates from Google Maps as the source of truth.</p>
 
     <p>Next, I chose 7 LLMs to compare [o1, claude-3.7-sonnet, DeepSeek R1, DeepSeek v3, gemini-2.5-pro-preview,
         llama_3_1_405B_instruct, llama_4_maverick_17B_128E_instruct].</p>
@@ -59,11 +60,13 @@ permalink: /blog/llm-geocoding/
     <p>As you can see, results widely vary depending on model used and the part of the world the point is located. Here
         are some things that I found interesting:</p>
     <ul>
-        <li>DeepSeek R1 will not answer any queries relating to Taiwan, but DeepSeek V3 will.</li>
-        <li>DeepSeek V3 sucks for getting coordinates for addresses on the West coast for some reason.</li>
         <li>The more well known your location is, the more accurate it will be.</li>
-        <li>Breadth of knowledge in LLMs is better than I expected. 4/8 got in the vicinity of the address in Comstock,
-            Nebraska (no offense to the residents of Comstock).</li>
+        <li>The thinking models are really good at ambiguous locations (ex:
+            <code>That one McDonald's in downtown Seattle that always has stabbings</code> has all of the thinking
+            models really close by the actual point).
+        </li>
+        <li>The models tend to just pick the city center or the most popular area if it isn't 100% sure where it is.
+        </li>
     </ul>
 
     <div class="table-container">
@@ -76,18 +79,20 @@ permalink: /blog/llm-geocoding/
                     <th>Max Distance (km)</th>
                     <th>Min Distance (km)</th>
                     <th>Standard Deviation (km)</th>
-                    <th>Addresses Found (%)</th>
+                    <th>Addresses Attempted (%)</th>
+                    <th>Cost</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>gemini_2_5_pro_experimental</td>
+                    <td>gemini_2_5_pro_preview</td>
                     <td>1.04</td>
                     <td>0.63</td>
                     <td>7.68</td>
                     <td>0.001</td>
                     <td>1.25</td>
                     <td>94.21</td>
+                    <td>[1]</td>
                 </tr>
                 <tr>
                     <td>chatgpt_o1</td>
@@ -97,6 +102,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.004</td>
                     <td>1.51</td>
                     <td>100.00</td>
+                    <td>$11.14</td>
                 </tr>
                 <tr>
                     <td>claude_3_7_sonnet</td>
@@ -106,6 +112,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.001</td>
                     <td>1.88</td>
                     <td>100.00</td>
+                    <td>$0.32</td>
                 </tr>
                 <tr>
                     <td>deepseek_r1</td>
@@ -115,6 +122,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.004</td>
                     <td>2.09</td>
                     <td>97.52</td>
+                    <td>[2]</td>
                 </tr>
                 <tr>
                     <td>llama_3_1_405B_instruct</td>
@@ -124,6 +132,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.003</td>
                     <td>44.58</td>
                     <td>90.91</td>
+                    <td>[2]</td>
                 </tr>
                 <tr>
                     <td>llama_4_maverick_17B_128E_instruct</td>
@@ -133,6 +142,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.037</td>
                     <td>117.88</td>
                     <td>100.00</td>
+                    <td>[2]</td>
                 </tr>
                 <tr>
                     <td>deepseek_v3</td>
@@ -142,20 +152,35 @@ permalink: /blog/llm-geocoding/
                     <td>0.003</td>
                     <td>374.74</td>
                     <td>100.00</td>
+                    <td>[2]</td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <ul>
+        <li>Gemini 2.5 Pro pretty much refused to geocode any coordinates it was unsure about.</li>
+        <li>I tried using the official DeepSeek API, but the R1 model would not answer any queries relating to Taiwan,
+            however DeepSeek V3
+            will.</li>
+    </ul>
 
     <h2>Conclusion</h2>
-    <p>If you for any reason wanted to get coordinates of an address without the use of the internet, but you somehow
-        had access to every single LLM on the planet (and a supercomputer), Gemini 2.5 Pro would be the way to go based on mean accuracy. However, if
-        you live in this
-        reality, your best choice would still be Gemini 2.5 Pro, though it doesn't have 100% coverage. If you need complete coverage,
-        ChatGPT o1 or Claude 3.7 Sonnet would be better choices, with ChatGPT o1 having slightly better accuracy.
+    <p>Can you use LLMs to geocode your addresses? Yes. Will it be accurate? Unless it's a really famous place, no.
+        
     </p>
 
     <p>Dataset Download: <a href="csv/address_source_of_truth.csv" download>address_source_of_truth.csv</a></p>
+
+    <h3>Appendix</h3>
+    [1] <a href="https://ai.google.dev/gemini-api/docs/pricing">"Free"</a> at the time of writing.
+    [2] I used Fireworks.AI for all of the open-weight models. Total cost was $0.64 combined.
+    [3] If you truly needed coordinates for your addresses you would use something like Google Maps Geocoding
+    or Smarty :P
+    [4] I found it really difficult to get addresses for pretty much any country not in the <a
+        href="https://en.wikipedia.org/wiki/G7">G7</a>. As a result, I had to pick some points of interests that were
+    more likely to have an address, like a business or similar, which would make it more likely to be in the training
+    data
+    of the model, compared to picking a random residential address.
 </body>
 
 </html>
