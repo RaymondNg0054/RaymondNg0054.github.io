@@ -28,14 +28,14 @@ Object.keys(colors).forEach(source => {
 // Function to load and process CSV files
 async function loadCSVs() {
     const csvFiles = [
-        '/blog/llm-geocoding/csv/address_source_of_truth.csv',
-        '/blog/llm-geocoding/csv/chatgpt_o1.csv',
-        '/blog/llm-geocoding/csv/claude_3_7_sonnet.csv',
-        '/blog/llm-geocoding/csv/deepseek_r1.csv',
-        '/blog/llm-geocoding/csv/deepseek_v3.csv',
-        '/blog/llm-geocoding/csv/gemini_2_5_pro_experimental.csv',
-        '/blog/llm-geocoding/csv/llama_3_1_405B_instruct.csv',
-        '/blog/llm-geocoding/csv/llama_4_maverick_17B_128E_instruct.csv'
+        '../csv/address_source_of_truth.csv',
+        '../csv/chatgpt_o1.csv',
+        '../csv/claude_3_7_sonnet.csv',
+        '../csv/deepseek_r1.csv',
+        '../csv/deepseek_v3.csv',
+        '../csv/gemini_2_5_pro_experimental.csv',
+        '../csv/llama_3_1_405B_instruct.csv',
+        '../csv/llama_4_maverick_17B_128E_instruct.csv'
     ];
     
     // Arrays to store all coordinates for calculating bounds
