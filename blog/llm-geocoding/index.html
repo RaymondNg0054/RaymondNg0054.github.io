@@ -33,7 +33,8 @@ permalink: /blog/llm-geocoding/
         </a>
     </header>
     <h1>LLM Geocoding</h1>
-    <p>I was playing around with Google's Geocoding API when I thought to plug in an address to o1 for fun and
+    <p>I was playing around with Google's Geocoding API when I thought to plug in an address into <code>o1</code> for
+        fun and
         curiosity's sake. Imagine my surprise when it actually got the coordinates right down to the first 3 decimal
         places
         (precision of within hundreds of meters)! Considering the fact that it got in the near vicinity without any
@@ -50,7 +51,9 @@ permalink: /blog/llm-geocoding/
 
     <p>Then, I gave the dataset with all of the coordinates removed to each LLM with this prompt:</p>
 
-    <code>Given these addresses, give the coordinates for each of them. I do not want any code to find these out or any services. Just give it your best shot to get the coordinates to 12 decimal places in Latitude and Longitude columns. Output your answer in CSV format.</code>
+    <code>Given following address: {address}, give the coordinates for each of them. I do not want any code to find these out or any services. Just give it your best shot to get the coordinates to 12 decimal places in Latitude and Longitude columns. Return ONLY a valid JSON object with exactly the following keys:
+        {"Latitude": <float>, "Longitude": <float>}
+        Do not include any additional commentary, explanations, or formatting.</code>
 
     <p>Lastly, I plotted all of the given coordinates on a map.</p>
 
@@ -122,7 +125,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.004</td>
                     <td>2.09</td>
                     <td>97.52</td>
-                    <td>[2]</td>
+                    <td><a href="#footnote2">[2]</a></td>
                 </tr>
                 <tr>
                     <td>llama_3_1_405B_instruct</td>
@@ -165,22 +168,26 @@ permalink: /blog/llm-geocoding/
     </ul>
 
     <h2>Conclusion</h2>
-    <p>Can you use LLMs to geocode your addresses? Yes. Will it be accurate? Unless it's a really famous place, no.
-        <a href="#footnote4">[4]</a>
-    </p>
-
-    <p>Dataset Download: <a href="csv/address_source_of_truth.csv" download>address_source_of_truth.csv</a> [3]</p>
+    <p>Can you use LLMs to geocode your addresses? Yes. Will it be accurate? Unless it's a really famous place, no.</p>
+    <p>It would be really interesting to see if the model creators decided to start explicitly folding in geospatial
+        data into their training. Google would probably have the best dataset out of all of them due to their Maps data,
+        and
+        their model already has the most accurate geocoding from what I've tested. Perhaps Apple or Meta would excel in
+        vision based models, due to the amount of exif-based geotagging metadata they get from photos.</p>
 
     <h3>Appendix</h3>
     <p id="footnote1">[1] <a href="https://ai.google.dev/gemini-api/docs/pricing">"Free"</a> at the time of writing.</p>
-    <p id="footnote2">[2] I used Fireworks.AI for all of the open-weight models. Total cost was $0.64 combined.</p>
-    <p id="footnote3">[3] If you truly needed coordinates for your addresses you would use something like Google Maps Geocoding
-    or Smarty :P</p>
+    <p id="footnote2">[2] I used <a href="https://fireworks.ai/">Fireworks.AI</a> for all of the open-weight models.
+        Total cost was $0.64 combined.</p>
+    <p id="footnote3">[3] If you truly needed coordinates for your addresses you would use something like <a
+            href="https://developers.google.com/maps/documentation/geocoding/overview">Google Maps
+            Geocoding</a>
+        or <a href="https://www.smarty.com/products/us-rooftop-geocoding">Smarty</a> :P</p>
     <p id="footnote4">[4] I found it really difficult to get addresses for pretty much any country not in the <a
-        href="https://en.wikipedia.org/wiki/G7">G7</a>. As a result, I had to pick some points of interests that were
-    more likely to have an address, like a business or similar, which would make it more likely to be in the training
-    data
-    of the model, compared to picking a random residential address.</p>
+            href="https://en.wikipedia.org/wiki/G7">G7</a>. As a result, I had to pick some points of interests that
+        were more likely to have an address, like a business or similar, which would make it more likely to be in the
+        training data of the model, compared to picking a random residential address.</p>
+    <p>Dataset Download: <a href="csv/address_source_of_truth.csv" download>address_source_of_truth.csv</a></p>
 </body>
 
 </html>
