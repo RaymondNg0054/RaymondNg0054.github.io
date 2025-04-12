@@ -92,7 +92,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.001</td>
                     <td>1.25</td>
                     <td>94.21</td>
-                    <td>[1]</td>
+                    <td><a href="#footnote1">[1]</a></td>
                 </tr>
                 <tr>
                     <td>chatgpt_o1</td>
@@ -132,7 +132,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.003</td>
                     <td>44.58</td>
                     <td>90.91</td>
-                    <td>[2]</td>
+                    <td><a href="#footnote2">[2]</a></td>
                 </tr>
                 <tr>
                     <td>llama_4_maverick_17B_128E_instruct</td>
@@ -142,7 +142,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.037</td>
                     <td>117.88</td>
                     <td>100.00</td>
-                    <td>[2]</td>
+                    <td><a href="#footnote2">[2]</a></td>
                 </tr>
                 <tr>
                     <td>deepseek_v3</td>
@@ -152,7 +152,7 @@ permalink: /blog/llm-geocoding/
                     <td>0.003</td>
                     <td>374.74</td>
                     <td>100.00</td>
-                    <td>[2]</td>
+                    <td><a href="#footnote2">[2]</a></td>
                 </tr>
             </tbody>
         </table>
@@ -169,18 +169,18 @@ permalink: /blog/llm-geocoding/
         
     </p>
 
-    <p>Dataset Download: <a href="csv/address_source_of_truth.csv" download>address_source_of_truth.csv</a></p>
+    <p>Dataset Download: <a href="csv/address_source_of_truth.csv" download>address_source_of_truth.csv</a> [3]</p>
 
     <h3>Appendix</h3>
-    [1] <a href="https://ai.google.dev/gemini-api/docs/pricing">"Free"</a> at the time of writing.
-    [2] I used Fireworks.AI for all of the open-weight models. Total cost was $0.64 combined.
-    [3] If you truly needed coordinates for your addresses you would use something like Google Maps Geocoding
-    or Smarty :P
-    [4] I found it really difficult to get addresses for pretty much any country not in the <a
+    <p id="footnote1">[1] <a href="https://ai.google.dev/gemini-api/docs/pricing">"Free"</a> at the time of writing.</p>
+    <p id="footnote2">[2] I used Fireworks.AI for all of the open-weight models. Total cost was $0.64 combined.</p>
+    <p id="footnote3">[3] If you truly needed coordinates for your addresses you would use something like Google Maps Geocoding
+    or Smarty :P</p>
+    <p id="footnote4">[4] I found it really difficult to get addresses for pretty much any country not in the <a
         href="https://en.wikipedia.org/wiki/G7">G7</a>. As a result, I had to pick some points of interests that were
     more likely to have an address, like a business or similar, which would make it more likely to be in the training
     data
-    of the model, compared to picking a random residential address.
+    of the model, compared to picking a random residential address.</p>
 </body>
 
 </html>
