@@ -61,7 +61,9 @@ async function loadCSVs() {
         
         try {
             const response = await fetch(file);
+            console.log(`Response for ${file}:`, response);
             const csvText = await response.text();
+            console.log(`CSV text for ${file}:`, csvText.substring(0, 200) + '...');
             
             Papa.parse(csvText, {
                 header: true,
