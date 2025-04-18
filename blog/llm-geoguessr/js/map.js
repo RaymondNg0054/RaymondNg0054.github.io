@@ -289,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadJSONLFiles();
     
     // Add CSS to make the layer control collapsible
-    const style = document.createElement('style');
     style.textContent = `
         .leaflet-control-layers-expanded {
             padding: 6px 10px 6px 6px;
