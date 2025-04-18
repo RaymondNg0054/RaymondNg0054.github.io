@@ -358,11 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overflow: hidden;
         }
         
-        .legend {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
-        }
+
     `;
     document.head.appendChild(style);
 });
