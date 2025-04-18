@@ -1,5 +1,5 @@
 // Initialize the map
-const map = L.map('map').setView([37.0902, -95.7129], 4); // Default to US center
+const map = L.map('map').setView([0, 0], 2); // Will be centered based on data
 
 // Add OpenStreetMap tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -7,100 +7,170 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(map);
 
-// Define colors for each source
+// Define colors for visualization
 const colors = {
-    'Source of Truth': 'black',
-    'O4 Mini Results': 'blue'
+    'truth': 'blue',
+    'prediction': 'red',
+    'path': 'purple'
 };
 
-// Create layer groups for each source
-const layers = {};
-Object.keys(colors).forEach(source => {
-    layers[source] = L.layerGroup().addTo(map);
-});
+// Create layer groups
+const layers = {
+    'Ground Truth': L.layerGroup().addTo(map),
+    'Predictions': L.layerGroup().addTo(map),
+    'Error Paths': L.layerGroup().addTo(map)
+};
+
+// Function to calculate distance between two points in km (Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
 
 // Function to load and process JSONL files
 async function loadJSONLFiles() {
-    const jsonlFiles = [
-        '/blog/llm-geoguessr/data/source_of_truth.jsonl',
-        '/blog/llm-geoguessr/data/o4_mini_results.jsonl'
-    ];
-    
-    // Arrays to store all coordinates for calculating bounds
+    // Arrays to store all coordinates for calculating bounds and center
     const allLats = [];
     const allLons = [];
     const allCoordinates = [];
     
-    // Map source names from filenames to display names
-    const sourceNameMap = {
-        'source_of_truth': 'Source of Truth',
-        'o4_mini_results': 'O4 Mini Results'
-    };
-    
-    for (const file of jsonlFiles) {
-        const fileKey = file.split('/').pop().replace('.jsonl', '');
-        const sourceName = sourceNameMap[fileKey] || fileKey;
+    try {
+        // Load source of truth data
+        const truthResponse = await fetch('/blog/llm-geoguessr/data/source_of_truth.jsonl');
+        const truthText = await truthResponse.text();
+        const truthLines = truthText.trim().split('\n');
+        const truthData = truthLines.map(line => JSON.parse(line));
         
-        try {
-            const response = await fetch(file);
-            const jsonlText = await response.text();
+        // Load prediction data
+        const predResponse = await fetch('/blog/llm-geoguessr/data/o4_mini_results.jsonl');
+        const predText = await predResponse.text();
+        const predLines = predText.trim().split('\n');
+        const predData = predLines.map(line => JSON.parse(line));
+        
+        // Create a map of truth data by ID for easy lookup
+        const truthMap = {};
+        truthData.forEach(item => {
+            truthMap[item.id] = item;
+        });
+        
+        // Process each prediction and match with ground truth
+        predData.forEach(predItem => {
+            const truthItem = truthMap[predItem.id];
             
-            // Process JSONL by splitting on newlines and parsing each line
-            const lines = jsonlText.trim().split('\n');
-            const data = lines.map(line => JSON.parse(line));
-            
-            data.forEach(item => {
-                const lat = parseFloat(item.lat);
-                const lon = parseFloat(item.lon);
+            if (truthItem) {
+                const latTruth = parseFloat(truthItem.lat);
+                const lonTruth = parseFloat(truthItem.lon);
+                const latPred = parseFloat(predItem.lat);
+                const lonPred = parseFloat(predItem.lon);
                 
-                if (!isNaN(lat) && !isNaN(lon)) {
-                    // Store coordinates for bounds calculation
-                    allLats.push(lat);
-                    allLons.push(lon);
-                    allCoordinates.push([lat, lon]);
+                if (!isNaN(latTruth) && !isNaN(lonTruth) && !isNaN(latPred) && !isNaN(lonPred)) {
+                    // Calculate error distance in km
+                    const errorDistance = calculateDistance(latTruth, lonTruth, latPred, lonPred);
                     
-                    // Create popup content
-                    const popupContent = `
-                        <b>Source:</b> ${sourceName}<br>
-                        <b>ID:</b> ${item.id}<br>
-                        <b>Location:</b> ${item.city}, ${item.country}<br>
-                        <b>Coordinates:</b> ${lat}, ${lon}<br>
-                        <b>Notes:</b> ${item.notes || 'N/A'}
+                    // Store coordinates for bounds calculation
+                    allLats.push(latTruth, latPred);
+                    allLons.push(lonTruth, lonPred);
+                    allCoordinates.push([latTruth, lonTruth], [latPred, lonPred]);
+                    
+                    // Create popup content for ground truth
+                    const truthPopup = `
+                        <b>ID:</b> ${truthItem.id}<br>
+                        <b>Ground Truth:</b> ${truthItem.city}, ${truthItem.country}<br>
+                        <b>Coordinates:</b> ${latTruth.toFixed(6)}, ${lonTruth.toFixed(6)}<br>
+                        <b>Notes:</b> ${truthItem.notes || 'N/A'}
                     `;
                     
-                    // Add marker to the appropriate layer
-                    L.circleMarker([lat, lon], {
-                        radius: 5,
-                        color: colors[sourceName],
-                        fillColor: colors[sourceName],
-                        fillOpacity: 0.7,
-                        weight: 1
+                    // Create popup content for prediction
+                    const predPopup = `
+                        <b>ID:</b> ${predItem.id}<br>
+                        <b>Prediction:</b> ${predItem.city}, ${predItem.country}<br>
+                        <b>Coordinates:</b> ${latPred.toFixed(6)}, ${lonPred.toFixed(6)}<br>
+                        <b>Error:</b> ${errorDistance.toFixed(2)} km<br>
+                        <b>Notes:</b> ${predItem.notes || 'N/A'}
+                    `;
+                    
+                    // Add ground truth marker
+                    L.marker([latTruth, lonTruth], {
+                        icon: L.divIcon({
+                            className: 'truth-marker',
+                            html: `<div style="background-color:${colors.truth};width:10px;height:10px;border-radius:50%;"></div>`,
+                            iconSize: [10, 10]
+                        })
                     })
-                    .bindPopup(popupContent)
-                    .bindTooltip(`${sourceName}: ${item.id}`)
-                    .addTo(layers[sourceName]);
-                }
-            });
-            
-            // After loading all data, fit the map to the bounds of all points
-            if (allCoordinates.length > 0) {
-                try {
-                    const bounds = L.latLngBounds(allCoordinates);
-                    map.fitBounds(bounds, {
-                        padding: [50, 50],
-                        maxZoom: 12
-                    });
-                } catch (e) {
-                    console.error("Error setting bounds:", e);
-                    // Fallback to center calculation if bounds fail
-                    const centerLat = allLats.reduce((a, b) => a + b, 0) / allLats.length;
-                    const centerLon = allLons.reduce((a, b) => a + b, 0) / allLons.length;
-                    map.setView([centerLat, centerLon], 4);
+                    .bindPopup(truthPopup)
+                    .bindTooltip(`Truth: ${truthItem.id}`)
+                    .addTo(layers['Ground Truth']);
+                    
+                    // Add prediction marker
+                    L.marker([latPred, lonPred], {
+                        icon: L.divIcon({
+                            className: 'pred-marker',
+                            html: `<div style="background-color:${colors.prediction};width:10px;height:10px;border-radius:50%;"></div>`,
+                            iconSize: [10, 10]
+                        })
+                    })
+                    .bindPopup(predPopup)
+                    .bindTooltip(`Prediction: ${predItem.id}`)
+                    .addTo(layers['Predictions']);
+                    
+                    // Add animated path between points (similar to AntPath in Folium)
+                    const pathOptions = {
+                        color: colors.path,
+                        weight: 2,
+                        opacity: 0.6,
+                        dashArray: '10, 20',
+                        dashOffset: '0',
+                        pulseColor: '#FFFFFF',
+                        delay: 800,
+                        paused: false,
+                        reverse: false
+                    };
+                    
+                    // Create a polyline with dash pattern to simulate ant path
+                    const errorPath = L.polyline([[latTruth, lonTruth], [latPred, lonPred]], {
+                        color: colors.path,
+                        weight: 2,
+                        dashArray: '10, 20',
+                        opacity: 0.7
+                    })
+                    .bindPopup(`<b>Error:</b> ${errorDistance.toFixed(2)} km`)
+                    .addTo(layers['Error Paths']);
+                    
+                    // Add animation to simulate ant path effect
+                    let offset = 0;
+                    setInterval(() => {
+                        offset = (offset + 1) % 30;
+                        errorPath.setStyle({ dashOffset: -offset.toString() });
+                    }, 100);
                 }
             }
-        } catch (error) {
-            console.error(`Error loading ${file}:`, error);
+        });
+            
+        // After loading all data, fit the map to the bounds of all points
+        if (allCoordinates.length > 0) {
+            try {
+                const bounds = L.latLngBounds(allCoordinates);
+                map.fitBounds(bounds, {
+                    padding: [50, 50],
+                    maxZoom: 12
+                });
+            } catch (e) {
+                console.error("Error setting bounds:", e);
+                // Fallback to center calculation if bounds fail
+                const centerLat = allLats.reduce((a, b) => a + b, 0) / allLats.length;
+                const centerLon = allLons.reduce((a, b) => a + b, 0) / allLons.length;
+                map.setView([centerLat, centerLon], 4);
+            }
         }
+    } catch (error) {
+        console.error(`Error loading data:`, error);
     }
 }
 
@@ -110,19 +180,26 @@ let legendContent;
 
 legend.onAdd = function(map) {
     const div = L.DomUtil.create('div', 'legend');
-    div.innerHTML = '<h4>Data Sources</h4>';
+    div.innerHTML = '<h4>Map Legend</h4>';
     
     // Create a container for the legend content
     legendContent = L.DomUtil.create('div', 'legend-content', div);
     
-    Object.entries(colors).forEach(([source, color]) => {
-        legendContent.innerHTML += `
-            <div class="legend-item">
-                <span class="color-box" style="background-color: ${color}"></span>
-                ${source.replace(/_/g, ' ')}
-            </div>
-        `;
-    });
+    // Add legend items
+    legendContent.innerHTML += `
+        <div class="legend-item">
+            <span class="color-box" style="background-color: ${colors.truth}"></span>
+            Ground Truth Locations
+        </div>
+        <div class="legend-item">
+            <span class="color-box" style="background-color: ${colors.prediction}"></span>
+            Predicted Locations
+        </div>
+        <div class="legend-item">
+            <span class="color-box" style="background-color: ${colors.path}"></span>
+            Error Paths
+        </div>
+    `;
     
     // Add toggle button for legend
     const toggleButton = L.DomUtil.create('button', 'map-control-button legend-toggle', div);
@@ -149,7 +226,7 @@ legend.addTo(map);
 // Add layer control with custom container
 const overlays = {};
 Object.entries(layers).forEach(([name, layer]) => {
-    overlays[name.replace(/_/g, ' ')] = layer;
+    overlays[name] = layer;
 });
 
 // Add the layer control
@@ -181,8 +258,34 @@ layerControlToggle.onAdd = function(map) {
 
 layerControlToggle.addTo(map);
 
-// Load the data
+// Add custom CSS for the markers and paths
 document.addEventListener('DOMContentLoaded', function() {
+    // Add CSS for markers and animations
+    const style = document.createElement('style');
+    style.textContent += `
+        .truth-marker, .pred-marker {
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+        }
+        
+        .truth-marker {
+            background-color: ${colors.truth};
+        }
+        
+        .pred-marker {
+            background-color: ${colors.prediction};
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 1000;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Load the data
     loadJSONLFiles();
     
     // Add CSS to make the layer control collapsible
