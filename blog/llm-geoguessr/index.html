@@ -31,8 +31,39 @@ permalink: /blog/llm-geoguessr
             <img src="/images/paint_spaceship.png" alt="Spaceship" height="80">
         </a>
     </header>
+    <h1>How good is o4-mini at Geoguessr?</h1>
+    <p>A recent trend that has popped up since o3 and o4-mini has released has been to submit an image of a location and tell the LLM to guess where it is. </p>
+    <a>
+        <img src="/blog/llm-geoguessr/images/twitter_geoguessr.jpg" alt="Screenshot of Twitter user arithmoquine's ChatGPT chat" height="80">
+    </a>
+    <p>This is actually a pretty close concept to my <a href="/blog/llm-geocoding">previous post</a> where I attempted to geocode coordinates based off the names of their locations.</p>
+    <p>I wanted to see how good the latest OpenAI model (o4-mini-high) was at this so I decided to create a small 23 location dataset and provide my report below.</p>
+    <p>First, to create my dataset, I just jumped around on Google Maps like last time, but with the twist of being on street-view for this post. I also had to record the coordinates of the point in street-view so I could get the distance-error later on.</p>
+    <p>Next, I simply had to create a script to continously prompt the OpenAI API. Here is the prompt I used:</p>
+    <code>    
+        Look at this image and determine its geographic location.
+        Return ONLY a JSON object with the following fields:
+        - id: the image ID (provided)
+        - file: the image file path (provided)
+        - lat: latitude as a float
+        - lon: longitude as a float
+        - country: country name
+        - city: just the name of the city or the closest city/town
+        - notes: where you think the location is in English
+        
+        Example format:
+        {"id":"000016", "file":"images/000016.png", "lat":35.64758313972121, "lon":139.62882171061867, "country":"Japan", "city":"Tokyo", "notes":""}
+        
+        Do not include any explanations, just the JSON object.
+    </code>
+    <p>Finally, I just had to plot the ground truth and the LLM responses on a map.</p>
 
-    
     <div id="map"></div>
     <script src="/blog/llm-geoguessr/js/map.js"></script>
+
+    <p>Considering that all the LLM had to go on was a picture, it did really well! I think that it would have done better than 99% of people on the planet at least (perhaps there's some CIA analyst who's really good at Geoguessr).</p>
+    <p>Next, I wanted to see how it did quantitatively.</p>
+
+
+
 </body>
