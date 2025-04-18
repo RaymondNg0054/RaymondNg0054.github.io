@@ -9,14 +9,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Define colors for each source
 const colors = {
-    'Address Source of Truth': 'black',
-    'ChatGPT o1': 'blue',
-    'Claude 3.7 Sonnet': 'green',
-    'DeepSeek R1': 'red',
-    'DeepSeek V3': 'purple',
-    'Gemini 2.5 Pro Experimental': 'orange',
-    'Llama 3.1 405B Instruct': 'darkred',
-    'LLama 4 Maverick 17B 12E Instruct': 'cadetblue'
+    'Source of Truth': 'black',
+    'O4 Mini Results': 'blue'
 };
 
 // Create layer groups for each source
@@ -25,17 +19,11 @@ Object.keys(colors).forEach(source => {
     layers[source] = L.layerGroup().addTo(map);
 });
 
-// Function to load and process CSV files
-async function loadCSVs() {
-    const csvFiles = [
-        '/blog/llm-geocoding/csv/address_source_of_truth.csv',
-        '/blog/llm-geocoding/csv/chatgpt_o1.csv',
-        '/blog/llm-geocoding/csv/claude_3_7_sonnet.csv',
-        '/blog/llm-geocoding/csv/deepseek_r1.csv',
-        '/blog/llm-geocoding/csv/deepseek_v3.csv',
-        '/blog/llm-geocoding/csv/gemini_2_5_pro_experimental.csv',
-        '/blog/llm-geocoding/csv/llama_3_1_405B_instruct.csv',
-        '/blog/llm-geocoding/csv/llama_4_maverick_17B_128E_instruct.csv'
+// Function to load and process JSONL files
+async function loadJSONLFiles() {
+    const jsonlFiles = [
+        '/blog/llm-geoguessr/data/source_of_truth.jsonl',
+        '/blog/llm-geoguessr/data/o4_mini_results.jsonl'
     ];
     
     // Arrays to store all coordinates for calculating bounds
@@ -45,58 +33,54 @@ async function loadCSVs() {
     
     // Map source names from filenames to display names
     const sourceNameMap = {
-        'address_source_of_truth': 'Address Source of Truth',
-        'chatgpt_o1': 'ChatGPT o1',
-        'claude_3_7_sonnet': 'Claude 3.7 Sonnet',
-        'deepseek_r1': 'DeepSeek R1',
-        'deepseek_v3': 'DeepSeek V3',
-        'gemini_2_5_pro_experimental': 'Gemini 2.5 Pro Experimental',
-        'llama_3_1_405B_instruct': 'Llama 3.1 405B Instruct',
-        'llama_4_maverick_17B_128E_instruct': 'LLama 4 Maverick 17B 12E Instruct'
+        'source_of_truth': 'Source of Truth',
+        'o4_mini_results': 'O4 Mini Results'
     };
     
-    for (const file of csvFiles) {
-        const fileKey = file.split('/').pop().replace('.csv', '');
+    for (const file of jsonlFiles) {
+        const fileKey = file.split('/').pop().replace('.jsonl', '');
         const sourceName = sourceNameMap[fileKey] || fileKey;
         
         try {
             const response = await fetch(file);
-            const csvText = await response.text();
+            const jsonlText = await response.text();
             
-            Papa.parse(csvText, {
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    results.data.forEach(row => {
-                        const lat = parseFloat(row.Latitude);
-                        const lon = parseFloat(row.Longitude);
-                        
-                        if (!isNaN(lat) && !isNaN(lon)) {
-                            // Store coordinates for bounds calculation
-                            allLats.push(lat);
-                            allLons.push(lon);
-                            allCoordinates.push([lat, lon]);
-                            
-                            // Create popup content
-                            const popupContent = `
-                                <b>Source:</b> ${sourceName}<br>
-                                <b>Address:</b> ${row.Address}<br>
-                                <b>Coordinates:</b> ${lat}, ${lon}
-                            `;
-                            
-                            // Add marker to the appropriate layer
-                            L.circleMarker([lat, lon], {
-                                radius: 5,
-                                color: colors[sourceName],
-                                fillColor: colors[sourceName],
-                                fillOpacity: 0.7,
-                                weight: 1
-                            })
-                            .bindPopup(popupContent)
-                            .bindTooltip(`${sourceName}: ${row.Address}`)
-                            .addTo(layers[sourceName]);
-                        }
-                    });
+            // Process JSONL by splitting on newlines and parsing each line
+            const lines = jsonlText.trim().split('\n');
+            const data = lines.map(line => JSON.parse(line));
+            
+            data.forEach(item => {
+                const lat = parseFloat(item.lat);
+                const lon = parseFloat(item.lon);
+                
+                if (!isNaN(lat) && !isNaN(lon)) {
+                    // Store coordinates for bounds calculation
+                    allLats.push(lat);
+                    allLons.push(lon);
+                    allCoordinates.push([lat, lon]);
+                    
+                    // Create popup content
+                    const popupContent = `
+                        <b>Source:</b> ${sourceName}<br>
+                        <b>ID:</b> ${item.id}<br>
+                        <b>Location:</b> ${item.city}, ${item.country}<br>
+                        <b>Coordinates:</b> ${lat}, ${lon}<br>
+                        <b>Notes:</b> ${item.notes || 'N/A'}
+                    `;
+                    
+                    // Add marker to the appropriate layer
+                    L.circleMarker([lat, lon], {
+                        radius: 5,
+                        color: colors[sourceName],
+                        fillColor: colors[sourceName],
+                        fillOpacity: 0.7,
+                        weight: 1
+                    })
+                    .bindPopup(popupContent)
+                    .bindTooltip(`${sourceName}: ${item.id}`)
+                    .addTo(layers[sourceName]);
+                }
+            });
                     
                     // After loading all data, fit the map to the bounds of all points
                     if (allCoordinates.length > 0) {
@@ -201,7 +185,7 @@ layerControlToggle.addTo(map);
 
 // Load the data
 document.addEventListener('DOMContentLoaded', function() {
-    loadCSVs();
+    loadJSONLFiles();
     
     // Add CSS to make the layer control collapsible
     const style = document.createElement('style');
