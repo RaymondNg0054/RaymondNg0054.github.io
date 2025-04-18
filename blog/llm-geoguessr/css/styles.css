@@ -66,3 +66,26 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.true-cell {
+    background-color: #d4edda !important;
+}
+
+.false-cell {
+    background-color: #f8d7da !important;
+}
+
+.striped-table td:nth-child(5),
+.striped-table td:nth-child(8) {
+    text-align: center;
+}
+
+.striped-table td:nth-child(5):contains('True'),
+.striped-table td:nth-child(8):contains('True') {
+    background-color: #d4edda;
+}
+
+.striped-table td:nth-child(5):contains('False'),
+.striped-table td:nth-child(8):contains('False') {
+    background-color: #f8d7da;
+}
