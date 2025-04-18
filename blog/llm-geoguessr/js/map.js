@@ -235,23 +235,43 @@ Object.entries(layers).forEach(([name, layer]) => {
 // Add the layer control
 const layerControl = L.control.layers(null, overlays, {collapsed: false}).addTo(map);
 
+// Get the layer control container and add it to our custom box
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        const layerControlContainer = document.querySelector('.leaflet-control-layers');
+        const layerBox = document.querySelector('.layer-box');
+        if (layerControlContainer && layerBox) {
+            layerBox.appendChild(layerControlContainer);
+        }
+    }, 100);
+});
+
 // Add toggle button for layer control
 const layerControlToggle = L.control({position: 'topright'});
 layerControlToggle.onAdd = function(map) {
     const div = L.DomUtil.create('div', 'layer-control-toggle');
-    const button = L.DomUtil.create('button', 'map-control-button', div);
-    button.innerHTML = 'Hide Layers';
     
-    button.onclick = function() {
+    // Create a container for the layer control box
+    const layerBox = L.DomUtil.create('div', 'layer-box', div);
+    
+    // Add toggle button for layer control
+    const toggleButton = L.DomUtil.create('button', 'map-control-button', div);
+    toggleButton.innerHTML = 'Hide Layers';
+    toggleButton.style.display = 'block';
+    toggleButton.style.width = '100%';
+    
+    toggleButton.onclick = function() {
         // Find the layer control container
         const layerControlContainer = document.querySelector('.leaflet-control-layers');
         
-        if (layerControlContainer.classList.contains('collapsed')) {
+        if (layerBox.classList.contains('collapsed')) {
+            layerBox.classList.remove('collapsed');
             layerControlContainer.classList.remove('collapsed');
-            button.innerHTML = 'Hide Layers';
+            toggleButton.innerHTML = 'Hide Layers';
         } else {
+            layerBox.classList.add('collapsed');
             layerControlContainer.classList.add('collapsed');
-            button.innerHTML = 'Show Layers';
+            toggleButton.innerHTML = 'Show Layers';
         }
     };
     
@@ -296,13 +316,26 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 6px 10px 6px 6px;
         }
         
-        .leaflet-control-layers.collapsed {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
+        .leaflet-control-layers {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
         }
         
-        .leaflet-control-layers.collapsed .leaflet-control-layers-list {
+        .leaflet-control-layers.collapsed {
+            display: none;
+        }
+        
+        .layer-box {
+            background-color: white;
+            padding: 0;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .layer-box.collapsed {
             display: none;
         }
         
