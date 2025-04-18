@@ -82,24 +82,24 @@ async function loadJSONLFiles() {
                 }
             });
                     
-                    // After loading all data, fit the map to the bounds of all points
-                    if (allCoordinates.length > 0) {
-                        try {
-                            const bounds = L.latLngBounds(allCoordinates);
-                            map.fitBounds(bounds, {
-                                padding: [50, 50],
-                                maxZoom: 12
-                            });
-                        } catch (e) {
-                            console.error("Error setting bounds:", e);
-                            // Fallback to center calculation if bounds fail
-                            const centerLat = allLats.reduce((a, b) => a + b, 0) / allLats.length;
-                            const centerLon = allLons.reduce((a, b) => a + b, 0) / allLons.length;
-                            map.setView([centerLat, centerLon], 4);
-                        }
-                    }
-                }
             });
+            
+            // After loading all data, fit the map to the bounds of all points
+            if (allCoordinates.length > 0) {
+                try {
+                    const bounds = L.latLngBounds(allCoordinates);
+                    map.fitBounds(bounds, {
+                        padding: [50, 50],
+                        maxZoom: 12
+                    });
+                } catch (e) {
+                    console.error("Error setting bounds:", e);
+                    // Fallback to center calculation if bounds fail
+                    const centerLat = allLats.reduce((a, b) => a + b, 0) / allLats.length;
+                    const centerLon = allLons.reduce((a, b) => a + b, 0) / allLons.length;
+                    map.setView([centerLat, centerLon], 4);
+                }
+            }
         } catch (error) {
             console.error(`Error loading ${file}:`, error);
         }
