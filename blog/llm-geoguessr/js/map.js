@@ -180,10 +180,13 @@ let legendContent;
 
 legend.onAdd = function(map) {
     const div = L.DomUtil.create('div', 'legend');
-    div.innerHTML = '<h4>Map Legend</h4>';
     
     // Create a container for the legend content
-    legendContent = L.DomUtil.create('div', 'legend-content', div);
+    const legendBox = L.DomUtil.create('div', 'legend-box', div);
+    legendBox.innerHTML = '<h4>Map Legend</h4>';
+    
+    // Create a container for the legend content
+    legendContent = L.DomUtil.create('div', 'legend-content', legendBox);
     
     // Add legend items
     legendContent.innerHTML += `
@@ -209,11 +212,11 @@ legend.onAdd = function(map) {
     toggleButton.style.marginTop = '5px';
     
     toggleButton.onclick = function() {
-        if (legendContent.classList.contains('collapsed')) {
-            legendContent.classList.remove('collapsed');
+        if (legendBox.classList.contains('collapsed')) {
+            legendBox.classList.remove('collapsed');
             toggleButton.innerHTML = 'Hide Legend';
         } else {
-            legendContent.classList.add('collapsed');
+            legendBox.classList.add('collapsed');
             toggleButton.innerHTML = 'Show Legend';
         }
     };
@@ -242,13 +245,12 @@ layerControlToggle.onAdd = function(map) {
     button.onclick = function() {
         // Find the layer control container
         const layerControlContainer = document.querySelector('.leaflet-control-layers');
-        const layerControlForm = layerControlContainer.querySelector('.leaflet-control-layers-list');
         
-        if (layerControlForm.classList.contains('collapsed')) {
-            layerControlForm.classList.remove('collapsed');
+        if (layerControlContainer.classList.contains('collapsed')) {
+            layerControlContainer.classList.remove('collapsed');
             button.innerHTML = 'Hide Layers';
         } else {
-            layerControlForm.classList.add('collapsed');
+            layerControlContainer.classList.add('collapsed');
             button.innerHTML = 'Show Layers';
         }
     };
@@ -294,32 +296,39 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 6px 10px 6px 6px;
         }
         
-        .leaflet-control-layers-list.collapsed {
-            max-height: 0;
-            opacity: 0;
-            margin: 0;
-            padding: 0;
+        .leaflet-control-layers.collapsed {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
         }
         
-        .leaflet-control-layers-list {
-            max-height: 500px;
-            opacity: 1;
-            transition: max-height 0.3s, opacity 0.3s, margin 0.3s, padding 0.3s;
-            overflow: hidden;
+        .leaflet-control-layers.collapsed .leaflet-control-layers-list {
+            display: none;
         }
         
-        .legend-content.collapsed {
-            max-height: 0;
-            opacity: 0;
-            margin: 0;
-            padding: 0;
+        .legend-box {
+            background-color: white;
+            padding: 6px 8px;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .legend-box.collapsed {
+            display: none;
         }
         
         .legend-content {
             max-height: 500px;
             opacity: 1;
-            transition: max-height 0.3s, opacity 0.3s, margin 0.3s, padding 0.3s;
+            transition: max-height 0.3s, opacity 0.3s;
             overflow: hidden;
+        }
+        
+        .legend {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
         }
     `;
     document.head.appendChild(style);
