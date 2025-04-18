@@ -59,3 +59,10 @@ body {
 .striped-table tr:hover {
     background-color: #e6e6e6;
 }
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

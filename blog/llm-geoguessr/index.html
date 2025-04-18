@@ -64,6 +64,46 @@ permalink: /blog/llm-geoguessr
     <p>Considering that all the LLM had to go on was a picture, it did really well! I think that it would have done better than 99% of people on the planet at least (perhaps there's some CIA analyst who's really good at Geoguessr).</p>
     <p>Next, I wanted to see how it did quantitatively.</p>
 
-
+    <div class="table-container">
+        <table class="striped-table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>distance_error_km</th>
+                    <th>country_truth</th>
+                    <th>country_pred</th>
+                    <th>country_correct</th>
+                    <th>city_truth</th>
+                    <th>city_pred</th>
+                    <th>city_correct</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>000001</td><td>4.13 km</td><td>United States</td><td>United States</td><td>True</td><td>Denver</td><td>Denver</td><td>True</td></tr>
+                <tr><td>000002</td><td>0.46 km</td><td>United States</td><td>United States</td><td>True</td><td>Monterey Park</td><td>Monterey Park</td><td>True</td></tr>
+                <tr><td>000003</td><td>31.71 km</td><td>United States</td><td>United States</td><td>True</td><td>St. Petersburg</td><td>Palmetto</td><td>False</td></tr>
+                <tr><td>000004</td><td>174.36 km</td><td>United States</td><td>United States</td><td>True</td><td>Hoisington</td><td>Norton</td><td>False</td></tr>
+                <tr><td>000005</td><td>0.16 km</td><td>United States</td><td>United States</td><td>True</td><td>New York</td><td>New York</td><td>True</td></tr>
+                <tr><td>000006</td><td>0.78 km</td><td>France</td><td>France</td><td>True</td><td>Paris</td><td>Paris</td><td>True</td></tr>
+                <tr><td>000007</td><td>200.46 km</td><td>United Kingdom</td><td>United Kingdom</td><td>True</td><td>Oxford</td><td>Norwich</td><td>False</td></tr>
+                <tr><td>000008</td><td>0.75 km</td><td>Germany</td><td>Germany</td><td>True</td><td>Cologne</td><td>Cologne</td><td>True</td></tr>
+                <tr><td>000009</td><td>0.55 km</td><td>Kenya</td><td>Kenya</td><td>True</td><td>Nairobi</td><td>Nairobi</td><td>True</td></tr>
+                <tr><td>000010</td><td>2988.64 km</td><td>Democratic Republic of the Congo</td><td>South Africa</td><td>False</td><td>Yangambi</td><td>Mbombela</td><td>False</td></tr>
+                <tr><td>000011</td><td>0.43 km</td><td>Greece</td><td>Greece</td><td>True</td><td>Athens</td><td>Athens</td><td>True</td></tr>
+                <tr><td>000012</td><td>292.48 km</td><td>Taiwan</td><td>Taiwan</td><td>True</td><td>Taipei</td><td>Kaohsiung</td><td>False</td></tr>
+                <tr><td>000013</td><td>0.56 km</td><td>China</td><td>Hong Kong</td><td>False</td><td>Hong Kong</td><td>Hong Kong</td><td>True</td></tr>
+                <tr><td>000014</td><td>9044.68 km</td><td>China</td><td>Canada</td><td>False</td><td>Shanghai</td><td>Vancouver</td><td>False</td></tr>
+                <tr><td>000015</td><td>5.31 km</td><td>Australia</td><td>Australia</td><td>True</td><td>Auburn</td><td>Sydney</td><td>False</td></tr>
+                <tr><td>000016</td><td>0.55 km</td><td>Japan</td><td>Japan</td><td>True</td><td>Tokyo</td><td>Tokyo</td><td>True</td></tr>
+                <tr><td>000017</td><td>1.42 km</td><td>Brazil</td><td>Brazil</td><td>True</td><td>Rio de Janeiro</td><td>Rio de Janeiro</td><td>True</td></tr>
+                <tr><td>000018</td><td>0.86 km</td><td>Canada</td><td>Canada</td><td>True</td><td>Surrey</td><td>Surrey</td><td>True</td></tr>
+                <tr><td>000019</td><td>1.07 km</td><td>Canada</td><td>Canada</td><td>True</td><td>Montreal</td><td>Montreal</td><td>True</td></tr>
+                <tr><td>000020</td><td>0.49 km</td><td>Norway</td><td>Norway</td><td>True</td><td>Oslo</td><td>Oslo</td><td>True</td></tr>
+                <tr><td>000021</td><td>1531.21 km</td><td>Spain</td><td>Morocco</td><td>False</td><td>Barcelona</td><td>Essaouira</td><td>False</td></tr>
+                <tr><td>000022</td><td>1.92 km</td><td>Norway</td><td>Norway</td><td>True</td><td>Longyearbyen</td><td>Longyearbyen</td><td>True</td></tr>
+                <tr><td>000023</td><td>1.23 km</td><td>United States</td><td>United States</td><td>True</td><td>Salt Lake City</td><td>Salt Lake City</td><td>True</td></tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
