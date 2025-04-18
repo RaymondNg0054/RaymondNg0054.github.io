@@ -32,15 +32,21 @@ permalink: /blog/llm-geoguessr
         </a>
     </header>
     <h1>How good is o4-mini at Geoguessr?</h1>
-    <p>A recent trend that has popped up since o3 and o4-mini has released has been to submit an image of a location and tell the LLM to guess where it is. </p>
+    <p>A recent trend that has popped up since o3 and o4-mini has released has been to submit an image of a location and
+        tell the LLM to guess where it is. </p>
     <a>
-        <img src="/blog/llm-geoguessr/images/twitter_geoguessr.jpg" alt="Screenshot of Twitter user arithmoquine's ChatGPT chat" height="80">
+        <img src="/blog/llm-geoguessr/images/twitter_geoguessr.jpg"
+            alt="Screenshot of Twitter user arithmoquine's ChatGPT chat" height="80">
     </a>
-    <p>This is actually a pretty close concept to my <a href="/blog/llm-geocoding">previous post</a> where I attempted to geocode coordinates based off the names of their locations.</p>
-    <p>I wanted to see how good the latest OpenAI model (o4-mini-high) was at this so I decided to create a small 23 location dataset and provide my report below.</p>
-    <p>First, to create my dataset, I just jumped around on Google Maps like last time, but with the twist of being on street-view for this post. I also had to record the coordinates of the point in street-view so I could get the distance-error later on.</p>
+    <p>This is actually a pretty close concept to my <a href="/blog/llm-geocoding">previous post</a> where I attempted
+        to geocode coordinates based off the names of their locations.</p>
+    <p>I wanted to see how good the latest OpenAI model (o4-mini-high) was at this, so I decided to create a small 23
+        location dataset and provide my report below.</p>
+    <p>First, to create my dataset, I just jumped around on Google Maps like last time, but with the twist of being on
+        street-view for this post. I also had to record the coordinates of the point in street-view so I could get the
+        distance-error later on.</p>
     <p>Next, I simply had to create a script to continously prompt the OpenAI API. Here is the prompt I used:</p>
-    <code>    
+    <code>
         Look at this image and determine its geographic location.
         Return ONLY a JSON object with the following fields:
         - id: the image ID (provided)
@@ -61,7 +67,9 @@ permalink: /blog/llm-geoguessr
     <div id="map"></div>
     <script src="/blog/llm-geoguessr/js/map.js"></script>
 
-    <p>Considering that all the LLM had to go on was a picture, it did really well! I think that it would have done better than 99% of people on the planet at least (perhaps there's some CIA analyst who's really good at Geoguessr).</p>
+    <p>Considering that all the LLM had to go on was a picture, it did really well! I think that it would have done
+        better than 99% of people on the planet at least (perhaps there's some CIA analyst who's really good at
+        Geoguessr).</p>
     <p>Next, I wanted to see how it did quantitatively.</p>
 
     <div class="table-container">
@@ -69,41 +77,266 @@ permalink: /blog/llm-geoguessr
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>distance_error_km</th>
-                    <th>country_truth</th>
-                    <th>country_pred</th>
-                    <th>country_correct</th>
-                    <th>city_truth</th>
-                    <th>city_pred</th>
-                    <th>city_correct</th>
+                    <th>Distance Error</th>
+                    <th>Country (Ground Truth)</th>
+                    <th>Country (Prediction)</th>
+                    <th>Country Correct</th>
+                    <th>City (Ground Truth)</th>
+                    <th>City (Prediction)</th>
+                    <th>City Correct</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>000001</td><td>4.13 km</td><td>United States</td><td>United States</td><td class="true-cell">True</td><td>Denver</td><td>Denver</td><td class="true-cell">True</td></tr>
-                <tr><td>000002</td><td>0.46 km</td><td>United States</td><td>United States</td><td class="true-cell">True</td><td>Monterey Park</td><td>Monterey Park</td><td class="true-cell">True</td></tr>
-                <tr><td>000003</td><td>31.71 km</td><td>United States</td><td>United States</td><td class="true-cell">True</td><td>St. Petersburg</td><td>Palmetto</td><td class="false-cell">False</td></tr>
-                <tr><td>000004</td><td>174.36 km</td><td>United States</td><td>United States</td><td class="true-cell">True</td><td>Hoisington</td><td>Norton</td><td class="false-cell">False</td></tr>
-                <tr><td>000005</td><td>0.16 km</td><td>United States</td><td>United States</td><td class="true-cell">True</td><td>New York</td><td>New York</td><td class="true-cell">True</td></tr>
-                <tr><td>000006</td><td>0.78 km</td><td>France</td><td>France</td><td class="true-cell">True</td><td>Paris</td><td>Paris</td><td class="true-cell">True</td></tr>
-                <tr><td>000007</td><td>200.46 km</td><td>United Kingdom</td><td>United Kingdom</td><td class="true-cell">True</td><td>Oxford</td><td>Norwich</td><td class="false-cell">False</td></tr>
-                <tr><td>000008</td><td>0.75 km</td><td>Germany</td><td>Germany</td><td class="true-cell">True</td><td>Cologne</td><td>Cologne</td><td class="true-cell">True</td></tr>
-                <tr><td>000009</td><td>0.55 km</td><td>Kenya</td><td>Kenya</td><td class="true-cell">True</td><td>Nairobi</td><td>Nairobi</td><td class="true-cell">True</td></tr>
-                <tr><td>000010</td><td>2988.64 km</td><td>Democratic Republic of the Congo</td><td>South Africa</td><td class="false-cell">False</td><td>Yangambi</td><td>Mbombela</td><td class="false-cell">False</td></tr>
-                <tr><td>000011</td><td>0.43 km</td><td>Greece</td><td>Greece</td><td class="true-cell">True</td><td>Athens</td><td>Athens</td><td class="true-cell">True</td></tr>
-                <tr><td>000012</td><td>292.48 km</td><td>Taiwan</td><td>Taiwan</td><td class="true-cell">True</td><td>Taipei</td><td>Kaohsiung</td><td class="false-cell">False</td></tr>
-                <tr><td>000013</td><td>0.56 km</td><td>China</td><td>Hong Kong</td><td class="false-cell">False</td><td>Hong Kong</td><td>Hong Kong</td><td class="true-cell">True</td></tr>
-                <tr><td>000014</td><td>9044.68 km</td><td>China</td><td>Canada</td><td class="false-cell">False</td><td>Shanghai</td><td>Vancouver</td><td class="false-cell">False</td></tr>
-                <tr><td>000015</td><td>5.31 km</td><td>Australia</td><td>Australia</td><td class="true-cell">True</td><td>Auburn</td><td>Sydney</td><td class="false-cell">False</td></tr>
-                <tr><td>000016</td><td>0.55 km</td><td>Japan</td><td>Japan</td><td class="true-cell">True</td><td>Tokyo</td><td>Tokyo</td><td class="true-cell">True</td></tr>
-                <tr><td>000017</td><td>1.42 km</td><td>Brazil</td><td>Brazil</td><td class="true-cell">True</td><td>Rio de Janeiro</td><td>Rio de Janeiro</td><td class="true-cell">True</td></tr>
-                <tr><td>000018</td><td>0.86 km</td><td>Canada</td><td>Canada</td><td class="true-cell">True</td><td>Surrey</td><td>Surrey</td><td class="true-cell">True</td></tr>
-                <tr><td>000019</td><td>1.07 km</td><td>Canada</td><td>Canada</td><td class="true-cell">True</td><td>Montreal</td><td>Montreal</td><td class="true-cell">True</td></tr>
-                <tr><td>000020</td><td>0.49 km</td><td>Norway</td><td>Norway</td><td class="true-cell">True</td><td>Oslo</td><td>Oslo</td><td class="true-cell">True</td></tr>
-                <tr><td>000021</td><td>1531.21 km</td><td>Spain</td><td>Morocco</td><td class="false-cell">False</td><td>Barcelona</td><td>Essaouira</td><td class="false-cell">False</td></tr>
-                <tr><td>000022</td><td>1.92 km</td><td>Norway</td><td>Norway</td><td class="true-cell">True</td><td>Longyearbyen</td><td>Longyearbyen</td><td class="true-cell">True</td></tr>
-                <tr><td>000023</td><td>1.23 km</td><td>United States</td><td>United States</td><td class="true-cell">True</td><td>Salt Lake City</td><td>Salt Lake City</td><td class="true-cell">True</td></tr>
+                <tr>
+                    <td>000001</td>
+                    <td>4.13 km</td>
+                    <td>United States</td>
+                    <td>United States</td>
+                    <td class="true-cell">True</td>
+                    <td>Denver</td>
+                    <td>Denver</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000002</td>
+                    <td>0.46 km</td>
+                    <td>United States</td>
+                    <td>United States</td>
+                    <td class="true-cell">True</td>
+                    <td>Monterey Park</td>
+                    <td>Monterey Park</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000003</td>
+                    <td>31.71 km</td>
+                    <td>United States</td>
+                    <td>United States</td>
+                    <td class="true-cell">True</td>
+                    <td>St. Petersburg</td>
+                    <td>Palmetto</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000004</td>
+                    <td>174.36 km</td>
+                    <td>United States</td>
+                    <td>United States</td>
+                    <td class="true-cell">True</td>
+                    <td>Hoisington</td>
+                    <td>Norton</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000005</td>
+                    <td>0.16 km</td>
+                    <td>United States</td>
+                    <td>United States</td>
+                    <td class="true-cell">True</td>
+                    <td>New York</td>
+                    <td>New York</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000006</td>
+                    <td>0.78 km</td>
+                    <td>France</td>
+                    <td>France</td>
+                    <td class="true-cell">True</td>
+                    <td>Paris</td>
+                    <td>Paris</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000007</td>
+                    <td>200.46 km</td>
+                    <td>United Kingdom</td>
+                    <td>United Kingdom</td>
+                    <td class="true-cell">True</td>
+                    <td>Oxford</td>
+                    <td>Norwich</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000008</td>
+                    <td>0.75 km</td>
+                    <td>Germany</td>
+                    <td>Germany</td>
+                    <td class="true-cell">True</td>
+                    <td>Cologne</td>
+                    <td>Cologne</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000009</td>
+                    <td>0.55 km</td>
+                    <td>Kenya</td>
+                    <td>Kenya</td>
+                    <td class="true-cell">True</td>
+                    <td>Nairobi</td>
+                    <td>Nairobi</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000010</td>
+                    <td>2988.64 km</td>
+                    <td>Democratic Republic of the Congo</td>
+                    <td>South Africa</td>
+                    <td class="false-cell">False</td>
+                    <td>Yangambi</td>
+                    <td>Mbombela</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000011</td>
+                    <td>0.43 km</td>
+                    <td>Greece</td>
+                    <td>Greece</td>
+                    <td class="true-cell">True</td>
+                    <td>Athens</td>
+                    <td>Athens</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000012</td>
+                    <td>292.48 km</td>
+                    <td>Taiwan</td>
+                    <td>Taiwan</td>
+                    <td class="true-cell">True</td>
+                    <td>Taipei</td>
+                    <td>Kaohsiung</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000013</td>
+                    <td>0.56 km</td>
+                    <td>China</td>
+                    <td>Hong Kong</td>
+                    <td class="false-cell">False</td>
+                    <td>Hong Kong</td>
+                    <td>Hong Kong</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000014</td>
+                    <td>9044.68 km</td>
+                    <td>China</td>
+                    <td>Canada</td>
+                    <td class="false-cell">False</td>
+                    <td>Shanghai</td>
+                    <td>Vancouver</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000015</td>
+                    <td>5.31 km</td>
+                    <td>Australia</td>
+                    <td>Australia</td>
+                    <td class="true-cell">True</td>
+                    <td>Auburn</td>
+                    <td>Sydney</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000016</td>
+                    <td>0.55 km</td>
+                    <td>Japan</td>
+                    <td>Japan</td>
+                    <td class="true-cell">True</td>
+                    <td>Tokyo</td>
+                    <td>Tokyo</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000017</td>
+                    <td>1.42 km</td>
+                    <td>Brazil</td>
+                    <td>Brazil</td>
+                    <td class="true-cell">True</td>
+                    <td>Rio de Janeiro</td>
+                    <td>Rio de Janeiro</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000018</td>
+                    <td>0.86 km</td>
+                    <td>Canada</td>
+                    <td>Canada</td>
+                    <td class="true-cell">True</td>
+                    <td>Surrey</td>
+                    <td>Surrey</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000019</td>
+                    <td>1.07 km</td>
+                    <td>Canada</td>
+                    <td>Canada</td>
+                    <td class="true-cell">True</td>
+                    <td>Montreal</td>
+                    <td>Montreal</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000020</td>
+                    <td>0.49 km</td>
+                    <td>Norway</td>
+                    <td>Norway</td>
+                    <td class="true-cell">True</td>
+                    <td>Oslo</td>
+                    <td>Oslo</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000021</td>
+                    <td>1531.21 km</td>
+                    <td>Spain</td>
+                    <td>Morocco</td>
+                    <td class="false-cell">False</td>
+                    <td>Barcelona</td>
+                    <td>Essaouira</td>
+                    <td class="false-cell">False</td>
+                </tr>
+                <tr>
+                    <td>000022</td>
+                    <td>1.92 km</td>
+                    <td>Norway</td>
+                    <td>Norway</td>
+                    <td class="true-cell">True</td>
+                    <td>Longyearbyen</td>
+                    <td>Longyearbyen</td>
+                    <td class="true-cell">True</td>
+                </tr>
+                <tr>
+                    <td>000023</td>
+                    <td>1.23 km</td>
+                    <td>United States</td>
+                    <td>United States</td>
+                    <td class="true-cell">True</td>
+                    <td>Salt Lake City</td>
+                    <td>Salt Lake City</td>
+                    <td class="true-cell">True</td>
+                </tr>
             </tbody>
         </table>
     </div>
+
+    <p>Well there's some interesting things that jumped out to me:</p>
+    <ul>
+        <li>The mean distance error is 621.05 km, while the median is an astounding 1.23 km.
+        <li>Hong Kong is listed as a country, while the ground truth labeled the country of Hong Kong as China.</li>
+        <li>The percentage of countries it got correct is 83%[1], while the percentage of cities it got correct is 65%.</li>
+    </ul>
+
+    <p>Like the LLM geocoding test I did previously, the LLM seems to do best if the location is well known enough to be
+        placed in its training data.</p>
+    <p>The conclusion that I can take away from this is that if you post an image of yourself with enough background
+        showing, it is likely that you can be geo-located to the city (with a fairly substantial margin of error to be
+        fair). This does pose some concerns on how well you can conceal your location if you simply plan on posting your
+        activities on social media. However, if you don't care that your smartphone probably exposes your location through EXIF metadata anyways[2], post away! </p>
+
+<h3>Appendix</h3>
+[1] If you count the Hong Kong city/country thing as true, the percentage of countries it got correct is 87%.
+[2] Yes, I am aware that most social media websites strip EXIF data for you beforehand!
 
 </body>
