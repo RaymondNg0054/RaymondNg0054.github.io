@@ -105,7 +105,7 @@ async function loadJSONLFiles() {
                         })
                     })
                     .bindPopup(truthPopup)
-                    .bindTooltip(`${truthItem.city}, ${truthItem.country}`)
+                    .bindTooltip(`Ground Truth: ${truthItem.city}, ${truthItem.country}`)
                     .addTo(layers['Ground Truth']);
                     
                     // Add prediction marker
@@ -117,7 +117,7 @@ async function loadJSONLFiles() {
                         })
                     })
                     .bindPopup(predPopup)
-                    .bindTooltip(`${predItem.city}, ${predItem.country}`)
+                    .bindTooltip(`Prediction: ${predItem.city}, ${predItem.country}`)
                     .addTo(layers['Predictions']);
                     
                     // Add animated path between points (similar to AntPath in Folium)
