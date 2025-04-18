@@ -81,8 +81,6 @@ async function loadJSONLFiles() {
                     .addTo(layers[sourceName]);
                 }
             });
-                    
-            });
             
             // After loading all data, fit the map to the bounds of all points
             if (allCoordinates.length > 0) {
