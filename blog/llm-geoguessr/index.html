@@ -325,7 +325,7 @@ permalink: /blog/llm-geoguessr
     <ul>
         <li>The mean distance error is 621.05 km, while the median is an astounding 1.23 km.
         <li>Hong Kong is listed as a country, while the ground truth labeled the country of Hong Kong as China.</li>
-        <li>The percentage of countries it got correct is 83%[1], while the percentage of cities it got correct is 65%.</li>
+        <li>The percentage of countries it got correct is 83%<a href="#footnote1">[1]</a>, while the percentage of cities it got correct is 65%.</li>
     </ul>
 
     <p>Like the LLM geocoding test I did previously, the LLM seems to do best if the location is well known enough to be
@@ -333,10 +333,12 @@ permalink: /blog/llm-geoguessr
     <p>The conclusion that I can take away from this is that if you post an image of yourself with enough background
         showing, it is likely that you can be geo-located to the city (with a fairly substantial margin of error to be
         fair). This does pose some concerns on how well you can conceal your location if you simply plan on posting your
-        activities on social media. However, if you don't care that your smartphone probably exposes your location through EXIF metadata anyways[2], post away! </p>
+        activities on social media. However, if you don't care that your smartphone probably exposes your location through EXIF metadata anyways<a href="#footnote2">[2]</a>, post away! </p>
 
 <h3>Appendix</h3>
-[1] If you count the Hong Kong city/country thing as true, the percentage of countries it got correct is 87%.
-[2] Yes, I am aware that most social media websites strip EXIF data for you beforehand!
+<ol>
+    <li id="footnote1"><a href="#footnote1">[1]</a> If you count the Hong Kong city/country thing as true, the percentage of countries it got correct is 87%.</li>
+    <li id="footnote2"><a href="#footnote2">[2]</a> Yes, I am aware that most social media websites strip EXIF data for you beforehand!</li>
+</ol>
 
 </body>
